@@ -1,5 +1,7 @@
 # pm-portfolio
 
+Live: https://pm-portfolio-bay-delta.vercel.app
+
 Quelle für meine Produkt-Portfolio-Site. Statisches, self-contained HTML, kein Build-Step.
 
 Bilingual (DE/EN, Umschalter), Dark-Mode über `prefers-color-scheme`.
