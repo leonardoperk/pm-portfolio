@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A stalled rollout, and the question that moved it · Leonardo Perkunic</title>
+<meta name="description" content="Case study: breaking a stalled enterprise AR rollout by getting first-hand ground truth. Product Owner at ViewAR.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f6f3;--panel:#ffffff;--ink:#191914;--sub:#57574f;
+    --line:#e4e3dc;--line-strong:#cfcec6;--accent:#2f3bff;--accent-soft:rgba(47,59,255,.08);
+    --max:720px;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --display:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#0e0e0d;--panel:#161614;--ink:#f1f0e9;--sub:#9a998f;
+      --line:#262622;--line-strong:#37362f;--accent:#7183ff;--accent-soft:rgba(113,131,255,.12);}
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--body);font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  header.site{position:sticky;top:0;z-index:10;
+    background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+  .bar{max-width:var(--max);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .back{font-family:var(--mono);font-size:13px;text-decoration:none;color:var(--sub);display:inline-flex;gap:7px;align-items:center}
+  .back:hover{color:var(--accent)}
+  .back .arw{transition:transform .15s}
+  .back:hover .arw{transform:translateX(-3px)}
+  .flag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+
+  .lead{padding:66px 0 40px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);
+    margin:0 0 20px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
+  h1{font-family:var(--display);font-weight:600;letter-spacing:-.02em;
+    font-size:clamp(1.9rem,4.6vw,2.7rem);line-height:1.1;margin:0 0 24px}
+  .note{font-size:.95rem;color:var(--sub);border-left:2px solid var(--line-strong);
+    padding-left:16px;margin:0}
+  .note b{color:var(--ink);font-weight:600}
+
+  article{padding:14px 0 40px}
+  h2{font-family:var(--display);font-weight:600;letter-spacing:-.01em;font-size:1.4rem;
+    margin:52px 0 14px;padding-top:14px}
+  h2 .n{font-family:var(--mono);font-size:.72em;color:var(--accent);font-weight:500;margin-right:12px}
+  p{margin:0 0 20px}
+  strong{font-weight:600}
+  em{color:var(--sub)}
+  ul{margin:0 0 20px;padding:0;list-style:none}
+  li{position:relative;padding-left:24px;margin:0 0 14px}
+  li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:1px;background:var(--accent)}
+
+  .callout{background:var(--panel);border:1px solid var(--line-strong);border-radius:12px;
+    padding:22px 24px;margin:26px 0}
+  .callout p{margin:0}
+  .callout p+p{margin-top:14px}
+
+  .metrics{display:grid;gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);
+    border-radius:12px;overflow:hidden;margin:30px 0}
+  @media(min-width:560px){.metrics{grid-template-columns:1fr 1fr}}
+  .metric{background:var(--panel);padding:22px 24px}
+  .metric .big{font-family:var(--display);font-weight:600;font-size:1.9rem;letter-spacing:-.02em;line-height:1;margin:0 0 8px}
+  .metric .lbl{font-size:.92rem;color:var(--sub);margin:0}
+
+  footer{border-top:1px solid var(--line);padding:34px 0 60px}
+  footer a{font-family:var(--mono);font-size:13px;text-decoration:none;display:inline-flex;gap:7px;align-items:center}
+  footer .arw{transition:transform .15s}
+  footer a:hover .arw{transform:translateX(-3px)}
+
+  @media(max-width:640px){body{font-size:16px}.lead{padding:44px 0 32px}h2{margin-top:42px}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <a class="back" href="index.html"><span class="arw">←</span> Leonardo Perkunic</a>
+    <span class="flag">Case study · EN</span>
+  </div>
+</header>
+
+<div class="lead">
+  <div class="wrap">
+    <p class="eyebrow">Product Owner · Judgment · Ownership · Outcome</p>
+    <h1>A stalled rollout, and the question that moved it</h1>
+    <p class="note">Real work at ViewAR (AR indoor navigation). The enterprise customer is referred to as <b>a global beverage manufacturer</b> for confidentiality. My role: Product Owner.</p>
+  </div>
+</div>
+
+<article>
+  <div class="wrap">
+
+    <h2><span class="n">01</span>Context</h2>
+    <p>ViewAR builds augmented-reality indoor navigation: you hold up your phone and it guides you through a large space turn by turn, on top of a digital twin of the building. The customer wanted to run it in live production, not a pilot. Their requirement was hard and specific: navigation accurate to within 10 centimeters, exactly what we advertised.</p>
+
+    <h2><span class="n">02</span>The problem</h2>
+    <p>They tested on their production floor and kept reporting the same thing: the accuracy wasn't there. Engineering investigated and couldn't reproduce the error on our side. Their read was that the fault sat in the initial scan, the Matterport capture we build the digital twin from, not in our software.</p>
+    <p>So it stalled. Sales and CS said engineering had to fix it. Engineering said the other two had to deliver something first. It went back and forth for nearly three months with no resolution. There was a Head of Product at the time, before me and for about a month into it, whose stance was: sales and CS owe us input first, until then we do nothing.</p>
+
+    <h2><span class="n">03</span>A different question</h2>
+    <p>Everyone was arguing the same one: whose fault is this, and who owes what first.</p>
+    <div class="callout">
+      <p><strong>The standoff wasn't really about the bug. It was about the boundary between the teams.</strong> Each side was defending its edge, not us, them first, and as long as that was the question nobody was going to get to the truth. I stopped asking who owed whom and asked what it would actually take to fix it.</p>
+    </div>
+
+    <h2><span class="n">04</span>Going to see it</h2>
+    <p>So I drove to the customer and walked onto the production floor myself. The first thing it settled: the bug was real. That had been heavily disputed internally, and seeing it live ended the argument. Then I could watch how it actually behaved in their space, not in a debugging session back at the office.</p>
+
+    <h2><span class="n">05</span>What it actually was: both sides</h2>
+    <p>The honest answer was that both sides were right, and that is exactly what the standoff had hidden.</p>
+    <ul>
+      <li><strong>The scan was faulty.</strong> Among other things, two adjacent scans had been captured at different height positions and never aligned, so the digital twin itself was off.</li>
+      <li><strong>Engineering had a bug too.</strong> If an error hit mid-navigation, the session was interrupted and resumed, and on resume it picked a new location reference. Once you knew where to look, you could provoke it on purpose.</li>
+    </ul>
+    <p>Neither team could see this alone, because each had already decided it was the other's problem. The scan fix wasn't enough by itself, and neither was the engineering fix. It took both.</p>
+
+    <h2><span class="n">06</span>Outcome</h2>
+    <p>Back at the office I drove it until it worked: the scan corrected so the adjacent captures shared one height reference, the navigation bug fixed. Both fixes had to land, and they did.</p>
+    <div class="metrics">
+      <div class="metric">
+        <p class="big">10 cm</p>
+        <p class="lbl">navigation accuracy restored in live production, the requirement met and one of our core sales claims kept.</p>
+      </div>
+      <div class="metric">
+        <p class="big">Live</p>
+        <p class="lbl">the rollout went into the customer's production environment, unblocked after nearly three months of standoff.</p>
+      </div>
+    </div>
+    <p>This wasn't a side project. We needed this deal to make our ARR target realistic at all, which is what made a months-long standoff on it so costly.</p>
+
+    <h2><span class="n">07</span>Where I was slow, and what I take from it</h2>
+    <p>I didn't come to this clear-headed. Early on I let the Head of Product's framing pull me in, and for a while I bought the silo view myself: us versus them, they owe us first. It took me time to get free of it and to see how critical the situation actually was. Once I was properly onboarded and had the whole picture, the call was obvious: we solve this or it breaks.</p>
+    <p>That's the part I keep. The silo framing is contagious, and I caught it before I broke out of it. When a cross-functional problem stalls on whose fault it is, the framing itself is the trap, and the fastest way out is first-hand ground truth. Positions hold up fine in a meeting room. They don't survive contact with what you can see on the floor.</p>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <a class="back" href="index.html"><span class="arw">←</span> Back to overview</a>
+  </div>
+</footer>
+
+</body>
+</html>

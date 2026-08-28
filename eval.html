@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An eval for my own PM tool · Leonardo Perkunic</title>
+<meta name="description" content="Building an eval to measure how many doc-worthy stories my /sprint-documentation-review command misses. Recall over accuracy, and a perfect score I didn't trust.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f6f3;--panel:#ffffff;--ink:#191914;--sub:#57574f;
+    --line:#e4e3dc;--line-strong:#cfcec6;--accent:#2f3bff;--accent-soft:rgba(47,59,255,.08);
+    --max:720px;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --display:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#0e0e0d;--panel:#161614;--ink:#f1f0e9;--sub:#9a998f;
+      --line:#262622;--line-strong:#37362f;--accent:#7183ff;--accent-soft:rgba(113,131,255,.12);}
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--body);font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  header.site{position:sticky;top:0;z-index:10;
+    background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+  .bar{max-width:var(--max);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .back{font-family:var(--mono);font-size:13px;text-decoration:none;color:var(--sub);display:inline-flex;gap:7px;align-items:center}
+  .back:hover{color:var(--accent)}
+  .back .arw{transition:transform .15s}
+  .back:hover .arw{transform:translateX(-3px)}
+  .flag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+
+  .lead{padding:66px 0 40px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);
+    margin:0 0 20px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
+  h1{font-family:var(--display);font-weight:600;letter-spacing:-.02em;
+    font-size:clamp(1.9rem,4.6vw,2.7rem);line-height:1.1;margin:0 0 24px}
+  .note{font-size:.95rem;color:var(--sub);border-left:2px solid var(--line-strong);
+    padding-left:16px;margin:0}
+  .note b{color:var(--ink);font-weight:600}
+
+  article{padding:14px 0 40px}
+  h2{font-family:var(--display);font-weight:600;letter-spacing:-.01em;font-size:1.4rem;
+    margin:52px 0 14px;padding-top:14px}
+  h2 .n{font-family:var(--mono);font-size:.72em;color:var(--accent);font-weight:500;margin-right:12px}
+  p{margin:0 0 20px}
+  strong{font-weight:600}
+  em{color:var(--sub)}
+  ul{margin:0 0 20px;padding:0;list-style:none}
+  li{position:relative;padding-left:24px;margin:0 0 14px}
+  li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:1px;background:var(--accent)}
+
+  .callout{background:var(--panel);border:1px solid var(--line-strong);border-radius:12px;
+    padding:22px 24px;margin:26px 0}
+  .callout p{margin:0}
+  .callout p+p{margin-top:14px}
+
+  .metrics{display:grid;gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);
+    border-radius:12px;overflow:hidden;margin:30px 0}
+  @media(min-width:560px){.metrics{grid-template-columns:1fr 1fr}}
+  .metric{background:var(--panel);padding:22px 24px}
+  .metric .big{font-family:var(--display);font-weight:600;font-size:1.9rem;letter-spacing:-.02em;line-height:1;margin:0 0 8px}
+  .metric .lbl{font-size:.92rem;color:var(--sub);margin:0}
+
+  .code{font-family:var(--mono);font-size:.86em;background:var(--accent-soft);color:var(--ink);
+    padding:1px 6px;border-radius:5px;white-space:nowrap}
+
+  footer{border-top:1px solid var(--line);padding:34px 0 60px}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px 24px}
+  footer a{font-family:var(--mono);font-size:13px;text-decoration:none;display:inline-flex;gap:7px;align-items:center}
+  footer .arw{transition:transform .15s}
+  footer a:hover .arw{transform:translateX(-3px)}
+  .repo{color:var(--sub)}
+  .repo:hover{color:var(--accent)}
+  .repo:hover .arw{transform:translate(2px,-2px)}
+
+  @media(max-width:640px){body{font-size:16px}.lead{padding:44px 0 32px}h2{margin-top:42px}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <a class="back" href="index.html"><span class="arw">←</span> Leonardo Perkunic</a>
+    <span class="flag">Eval · EN</span>
+  </div>
+</header>
+
+<div class="lead">
+  <div class="wrap">
+    <p class="eyebrow">Product Owner · Rigor · Own tools · Self-scrutiny</p>
+    <h1>An eval for my own PM tool</h1>
+    <p class="note">A Claude Code command I built reviews each sprint and flags which shipped stories need documentation. This eval measures the one thing that matters about it: <b>how many doc-worthy stories it misses.</b> Built end to end by me; the product in the test set is fictional, so the whole thing is shareable.</p>
+  </div>
+</div>
+
+<article>
+  <div class="wrap">
+
+    <h2><span class="n">01</span>The tool, and the risk in it</h2>
+    <p>I built a <span class="code">/sprint-documentation-review</span> command that runs every sprint, unattended, across whatever stories shipped that sprint. It flags each one as "needs docs" or not, proposes the updates, and a human approves them. That approval step looks like the safety net. It isn't the one that counts.</p>
+
+    <h2><span class="n">02</span>Why recall is the number that matters</h2>
+    <p>You can only approve what the system puts in front of you. A story the classifier wrongly marks "no docs" never shows up in the review, so the human can't catch it. The gate stops bad proposals; it can't stop missing ones.</p>
+    <div class="callout">
+      <p><strong>So recall is what actually protects the docs</strong>, the share of genuinely doc-worthy changes the classifier catches. A false positive is noise a human clears in a second. A false negative is invisible, a gap you'd otherwise find through a support ticket weeks later. This eval optimizes for recall, not accuracy, because the two errors have very different costs.</p>
+    </div>
+
+    <h2><span class="n">03</span>What I built</h2>
+    <ul>
+      <li>A reference set of <strong>29 stories across two sprints</strong>, describing a category-standard messaging product. Fictional, so it's shareable.</li>
+      <li><strong>Hand-labeled ground truth:</strong> each story marked needs-docs yes/no against a product-truth definition, held in a separate answer key the classifier never sees.</li>
+      <li>A <strong>runner</strong> that applies the command's real classification rules with a single blind agent, then scores the confusion matrix, precision, recall, and a diagnosis of every error.</li>
+    </ul>
+    <p>The set leans on enhancements to existing features on purpose, the exact case a naive "new feature only" classifier drops.</p>
+
+    <h2><span class="n">04</span>v1: a perfect score I didn't trust</h2>
+    <p>v1 scored a perfect 100%, recall and precision both. Instead of shipping that, I treated it as suspect. A perfect score usually means the test is too easy.</p>
+    <p>It was. My story descriptions leaked the answers, phrases like "same UI" and "no user-facing change". The classifier was reading labels, not judging ambiguous stories. A 100% that comes from an easy test is exactly the "green doesn't mean correct" failure mode the tool is supposed to guard against.</p>
+
+    <h2><span class="n">05</span>v2: hardening the test until it could fail</h2>
+    <p>v2 wasn't a change to the classifier. It was a change to the test. I rewrote all 29 stories in raw Jira-ticket voice, where user impact has to be inferred: <em>"migrate to BullMQ, payloads unchanged"</em> instead of <em>"internal, no user change"</em>.</p>
+    <p>Recall held at 100%. That's the result worth having: the classifier genuinely infers doc-need from a bare ticket, it wasn't just matching tells. The harder test also surfaced the real weak spot, one false positive on a reliability change (a webhook retry), which is the cheap kind of error. The frontier moved from recall to precision.</p>
+    <div class="metrics">
+      <div class="metric">
+        <p class="big">100%</p>
+        <p class="lbl">recall, held from v1 to v2 (16/16 doc-worthy stories caught) even after the test was rewritten to hide the answers.</p>
+      </div>
+      <div class="metric">
+        <p class="big">100 → 94%</p>
+        <p class="lbl">precision, v1 to v2. The one new error is an over-flag on a reliability change, the cheap kind to make.</p>
+      </div>
+    </div>
+
+    <h2><span class="n">06</span>The honest limit on the number</h2>
+    <div class="callout">
+      <p><strong>This is a small set.</strong> 100% recall means zero misses on 16 doc-worthy stories, not a perfect classifier. By the rule of three, zero misses on 16 is still consistent with a true recall near 80%. That's why the two-run story matters more than the headline number, and why I'd rather state the limit than lean on the 100%.</p>
+    </div>
+
+    <h2><span class="n">07</span>What I deliberately left as future work</h2>
+    <ul>
+      <li><strong>Stage 2, output quality.</strong> This eval covers routing, which stories need docs. The command also drafts the doc text, and judging that is a separate, softer eval with no single right answer. Sketched, not built.</li>
+      <li><strong>v3, scenario ambiguity.</strong> v2 hardened the phrasing; the scenarios are still one clean change per ticket. Real sprints bring compound and vague tickets, and that's where recall would finally bend.</li>
+    </ul>
+    <p>Both are noted so the map is visible. One eval done well beats three half-built.</p>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <a class="back" href="index.html"><span class="arw">←</span> Back to overview</a>
+    <a class="repo" href="https://github.com/leonardoperk/pm-toolkit/tree/main/tools/docs-classification-eval" target="_blank" rel="noopener">See the eval in the repo <span class="arw">↗</span></a>
+  </div>
+</footer>
+
+</body>
+</html>

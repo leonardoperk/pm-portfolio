@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rebuilding Automations for self-service · Leonardo Perkunic</title>
+<meta name="description" content="Case study: rebuilding a B2B SaaS automations feature for self-service. Product Owner, full product responsibility.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f6f3;--panel:#ffffff;--ink:#191914;--sub:#57574f;
+    --line:#e4e3dc;--line-strong:#cfcec6;--accent:#2f3bff;--accent-soft:rgba(47,59,255,.08);
+    --max:720px;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --display:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#0e0e0d;--panel:#161614;--ink:#f1f0e9;--sub:#9a998f;
+      --line:#262622;--line-strong:#37362f;--accent:#7183ff;--accent-soft:rgba(113,131,255,.12);}
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--body);font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  header.site{position:sticky;top:0;z-index:10;
+    background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--line)}
+  .bar{max-width:var(--max);margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .back{font-family:var(--mono);font-size:13px;text-decoration:none;color:var(--sub);display:inline-flex;gap:7px;align-items:center}
+  .back:hover{color:var(--accent)}
+  .back .arw{transition:transform .15s}
+  .back:hover .arw{transform:translateX(-3px)}
+  .flag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--sub)}
+
+  .lead{padding:66px 0 40px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);
+    margin:0 0 20px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
+  h1{font-family:var(--display);font-weight:600;letter-spacing:-.02em;
+    font-size:clamp(1.9rem,4.6vw,2.7rem);line-height:1.1;margin:0 0 24px}
+  .note{font-size:.95rem;color:var(--sub);border-left:2px solid var(--line-strong);
+    padding-left:16px;margin:0}
+  .note b{color:var(--ink);font-weight:600}
+
+  article{padding:14px 0 40px}
+  h2{font-family:var(--display);font-weight:600;letter-spacing:-.01em;font-size:1.4rem;
+    margin:52px 0 14px;padding-top:14px}
+  h2 .n{font-family:var(--mono);font-size:.72em;color:var(--accent);font-weight:500;margin-right:12px}
+  p{margin:0 0 20px}
+  strong{font-weight:600}
+  em{color:var(--sub)}
+  ul{margin:0 0 20px;padding:0;list-style:none}
+  li{position:relative;padding-left:24px;margin:0 0 14px}
+  li::before{content:"";position:absolute;left:2px;top:.72em;width:8px;height:1px;background:var(--accent)}
+
+  .callout{background:var(--panel);border:1px solid var(--line-strong);border-radius:12px;
+    padding:22px 24px;margin:26px 0}
+  .callout p{margin:0}
+  .callout p+p{margin-top:14px}
+
+  .metrics{display:grid;gap:1px;background:var(--line-strong);border:1px solid var(--line-strong);
+    border-radius:12px;overflow:hidden;margin:30px 0}
+  @media(min-width:560px){.metrics{grid-template-columns:1fr 1fr}}
+  .metric{background:var(--panel);padding:22px 24px}
+  .metric .big{font-family:var(--display);font-weight:600;font-size:1.9rem;letter-spacing:-.02em;line-height:1;margin:0 0 8px}
+  .metric .lbl{font-size:.92rem;color:var(--sub);margin:0}
+
+  footer{border-top:1px solid var(--line);padding:34px 0 60px}
+  footer a{font-family:var(--mono);font-size:13px;text-decoration:none;display:inline-flex;gap:7px;align-items:center}
+  footer .arw{transition:transform .15s}
+  footer a:hover .arw{transform:translateX(-3px)}
+
+  @media(max-width:640px){body{font-size:16px}.lead{padding:44px 0 32px}h2{margin-top:42px}}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <a class="back" href="index.html"><span class="arw">←</span> Leonardo Perkunic</a>
+    <span class="flag">Case study · EN</span>
+  </div>
+</header>
+
+<div class="lead">
+  <div class="wrap">
+    <p class="eyebrow">Product Owner · Ownership · Judgment · Outcome</p>
+    <h1>Rebuilding Automations for self-service</h1>
+    <p class="note">Real work, anonymized for confidentiality. The company is referred to as <b>"the product,"</b> a venture-backed B2B guest-messaging SaaS for hospitality. My role: Product Owner, full product responsibility.</p>
+  </div>
+</div>
+
+<article>
+  <div class="wrap">
+
+    <h2><span class="n">01</span>Context</h2>
+    <p>The product gave hotels a shared inbox across all their channels, plus contact management, reporting, PMS integrations, and more. This case study is about one part of it: Automations, the feature that sent outbound messages automatically along the guest's stay. Outbound ran mostly on WhatsApp templates, SMS as a fallback, nothing else. Automations wasn't the one reason customers paid, but it was the product's outbound-messaging feature and a big part of what it did.</p>
+
+    <h2><span class="n">02</span>The problem</h2>
+    <p>Automations was a conditional-tree builder. Powerful on paper: you could nest conditions and make them depend on each other. In practice almost nobody used it on their own. The people meant to run it were hotel staff with little technical background, and the feature assumed a technical user. So support set it up and maintained it for every customer by hand.</p>
+    <p>That created two problems that fed each other:</p>
+    <ul>
+      <li><strong>It blocked scale.</strong> No customer could run the outbound feature without support setting it up and babysitting it. Going from 200 customers toward 1,000 just doesn't work when every account needs hands-on support.</li>
+      <li><strong>It broke onboarding and retention.</strong> The feature targeted a technical user our customers didn't have, so sales oversold how usable it was and support absorbed the gap. New customers often didn't realize they couldn't run it without a technical person, and support capacity is finite. They were frustrated from onboarding on. Churn ran well above healthy SaaS levels, and a lot of users never really activated. <em>(Specific figures withheld for confidentiality.)</em></li>
+    </ul>
+
+    <h2><span class="n">03</span>The call</h2>
+    <p>A rebuild was already mandatory. During my onboarding, engineering found that upcoming changes to the app would break the existing automations anyway. The open question was what to rebuild toward, and that's where I made the call: self-service.</p>
+    <p>My reasoning went past the feature itself. If we wanted to scale the way the CEO intended, with onboarding and retention numbers that bad, the math didn't work. The core of the product had to be something a real customer could use without us. So I argued a broader point: the company had to move from sales-led to product-led sales, and self-service was the foundation for that, both for how the product gets sold and demoed and for how customers onboard and stay. Automations was where to prove it.</p>
+
+    <h2><span class="n">04</span>Working it out without data</h2>
+    <p>No analytics, no usage data, nothing to point to. So I built the picture from the people with the customer exposure. I ran a lot of internal interviews with everyone customer-facing, especially support, who saw the most customers and knew exactly where they got stuck. That told me what our actual users could and couldn't be trusted to do on their own. I wrote the specs with them, built a prototype, validated it back with them, and got clear feedback from them that it matched what they needed.</p>
+
+    <h2><span class="n">05</span>The core trade-off: power for usability</h2>
+    <p>Scope was the hardest part, and it took several intense rounds with the CPO. The old tree was genuinely powerful, with nested, interdependent conditionals. The new design was deliberately the opposite. Connect your WhatsApp Business account, connect your PMS, get pre-built WhatsApp template drafts, fill them with your hotel's details, pick when they go out. Done.</p>
+    <p>I traded theoretical power for a flow our real users could actually finish on their own. The goal: a UX a non-technical hotel employee could run end to end.</p>
+    <div class="callout">
+      <p><strong>The product bet: map automations onto the guest journey.</strong> That was the big assumption. I built the feature around a five-step guest journey we defined ourselves, each step tied to a concrete PMS trigger. When the trigger fires, the automated WhatsApp template goes out. Each event holds up to three messages, and each message has a timing (at the trigger, before, or after). So outbound messaging maps onto the guest's phase of the stay, and the marketer can shape content to fit where the guest actually is. That mattered to our ICP: high-end hotels that care a lot about the guest experience.</p>
+    </div>
+    <p>One limit I'll name: this guest-journey model was validated through the people closest to the customer, not with hoteliers directly. Under the no-analytics constraint that was the fastest reliable signal I had, but it was tested against support's picture of the user, not the user. With more runway I'd have put it in front of real hoteliers.</p>
+    <p><strong>Prioritization</strong> was the easy part. I wanted to build other things first, but this had to ship now, otherwise automations would stop working entirely, and that would have been a catastrophe for existing customers.</p>
+
+    <h2><span class="n">06</span>A decision I lost, and why I committed anyway</h2>
+    <p>Early on I pushed back hard on a webhook-receive feature the CPO wanted: an endpoint customers could send data to and then use in automations, with how the data gets there left to them. To me it was the old mistake again, a feature for a technical user we didn't have.</p>
+    <p>The context: our ICP was high-end hotels, but sales liked to sell to short-term-rental operators and similar. There was a lot of noise from users who were in the base but not ICP, and they were the loudest. The CPO decided it was a must, so we built it.</p>
+    <p>I disagreed, committed, and shipped it. Then I checked the outcome: we'd basically built it for one "north-star" customer. No broader user need, exactly as I'd expected.</p>
+
+    <h2><span class="n">07</span>Outcome</h2>
+    <div class="metrics">
+      <div class="metric">
+        <p class="big">80%+</p>
+        <p class="lbl">of new users could use Automations without support (CS-observed), against almost none before.</p>
+      </div>
+      <div class="metric">
+        <p class="big">Near-zero</p>
+        <p class="lbl">hands-on support to run Automations, down from setup and babysitting on every account.</p>
+      </div>
+    </div>
+    <ul>
+      <li>The assumption held: users don't need more than three message automations per event.</li>
+      <li>Strong qualitative feedback: customers were grateful for the pre-built templates, which removed the blank-page problem.</li>
+      <li><strong>Support load dropped to a residual.</strong> What was left mostly wasn't about the feature at all. The hardest step for most users was connecting the WhatsApp Business account, which is what unlocks Automations, and most of the leftover requests were about that. That connection follows Meta's process, which we can't change, only support, so I logged a backlog item to guide users through that step better.</li>
+    </ul>
+    <div class="callout">
+      <p><strong>What the 80% actually is, and isn't.</strong> The company had no analytics, and my attempt to get instrumentation in (a full event-tracking plan) didn't ship before I left. The 80%+ above isn't an activation curve, it's CS-observed: across the ~20 onboardings in that window, CS reported 3 to 4 customers that couldn't run Automations on their own, the rest could. Small sample, straight from the people doing the onboardings. I'd rather say that plainly than dress up a number I couldn't cleanly measure.</p>
+    </div>
+    <p>What this meant for the scale thesis: onboarding a new customer no longer needed hands-on support per account, so support capacity stopped being the ceiling on growth. That was the whole point of the rebuild. I left before we could measure the growth curve itself, so I'll call the thesis addressed, not proven.</p>
+
+    <h2><span class="n">08</span>What went wrong, and what I'd do differently</h2>
+    <ul>
+      <li>Small timezone bug for the first few days. We hotfixed it.</li>
+      <li>The webhook-receive call I lost is as much an organizational lesson as a product one: loud non-ICP users and a single reference customer can pull scope away from a strategy you've just set.</li>
+    </ul>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <a class="back" href="index.html"><span class="arw">←</span> Back to overview</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="de" data-lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonardo Perkunic · Product Owner</title>
+<meta name="description" content="Leonardo Perkunic · Product Owner, B2B SaaS. Ich baue Produkte, als wäre die Firma meine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f6f3;
+    --panel:#ffffff;
+    --ink:#191914;
+    --sub:#57574f;
+    --line:#e4e3dc;
+    --line-strong:#cfcec6;
+    --accent:#2f3bff;
+    --accent-soft:rgba(47,59,255,.08);
+    --max:940px;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --display:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e0e0d;
+      --panel:#161614;
+      --ink:#f1f0e9;
+      --sub:#9a998f;
+      --line:#262622;
+      --line-strong:#37362f;
+      --accent:#7183ff;
+      --accent-soft:rgba(113,131,255,.12);
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--body);font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* language switch */
+  [data-lang="de"] .en{display:none}
+  [data-lang="en"] .de{display:none}
+
+  a{color:inherit}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  /* header */
+  header.site{
+    position:sticky;top:0;z-index:10;
+    background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:saturate(1.2) blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .bar{max-width:var(--max);margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .mark{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:.02em;text-decoration:none}
+  .mark .dot{color:var(--accent)}
+  .langswitch{display:flex;font-family:var(--mono);font-size:12px;border:1px solid var(--line-strong);border-radius:6px;overflow:hidden}
+  .langswitch button{
+    appearance:none;border:0;background:transparent;color:var(--sub);
+    font:inherit;padding:6px 11px;cursor:pointer;transition:.15s}
+  .langswitch button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+  .langswitch button+button{border-left:1px solid var(--line-strong)}
+
+  /* hero */
+  .hero{padding:88px 0 72px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--sub);margin:0 0 22px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
+  h1{font-family:var(--display);font-weight:600;letter-spacing:-.02em;
+    font-size:clamp(2.2rem,5.4vw,3.5rem);line-height:1.06;margin:0 0 24px;max-width:16ch}
+  .lede{font-size:clamp(1.05rem,2vw,1.22rem);color:var(--sub);max-width:60ch;margin:0}
+  .lede b{color:var(--ink);font-weight:600}
+
+  /* section scaffolding */
+  section{padding:66px 0;border-bottom:1px solid var(--line)}
+  .sec-head{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--sub);margin:0 0 30px;
+    display:flex;align-items:baseline;gap:14px}
+  .sec-head .num{color:var(--accent)}
+  .sec-head .kick{color:var(--accent)}
+  .sec-head .kick::after{content:"·";margin-left:14px;color:var(--sub)}
+  .prose p{margin:0 0 20px;max-width:66ch}
+  .prose p:last-child{margin-bottom:0}
+  .prose .accentline{
+    border-left:2px solid var(--accent);padding-left:18px;color:var(--ink)}
+
+  /* arrow chain: causal logic, his thinking style */
+  .chain{margin:24px 0;padding:18px 20px;border:1px solid var(--line-strong);border-radius:12px;background:var(--panel)}
+  .chain-label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:13px}
+  .chain-flow{display:flex;flex-wrap:wrap;align-items:center;gap:9px 7px}
+  .chain .node{font-family:var(--mono);font-size:12.5px;color:var(--ink);border:1px solid var(--line-strong);border-radius:6px;padding:6px 11px;background:var(--bg)}
+  .chain .arw{font-family:var(--mono);color:var(--accent);font-size:14px;font-weight:600}
+
+  /* work list: bordered rows, engineered feel */
+  .work{border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;background:var(--panel)}
+  .row{
+    display:grid;grid-template-columns:46px 1fr auto;gap:20px;align-items:start;
+    padding:26px 26px;text-decoration:none;color:inherit;
+    border-top:1px solid var(--line);transition:background .15s}
+  .row:first-child{border-top:0}
+  a.row:hover{background:var(--accent-soft)}
+  .row .idx{font-family:var(--mono);font-size:13px;color:var(--sub);padding-top:3px}
+  .row h3{font-family:var(--display);font-weight:600;font-size:1.24rem;letter-spacing:-.01em;margin:0 0 7px}
+  .row .desc{color:var(--sub);font-size:.98rem;margin:0 0 13px;max-width:60ch}
+  .tags{display:flex;flex-wrap:wrap;gap:7px}
+  .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--sub);border:1px solid var(--line-strong);border-radius:4px;padding:3px 7px}
+  .row .go{font-family:var(--mono);font-size:13px;color:var(--sub);white-space:nowrap;padding-top:3px;
+    display:flex;align-items:center;gap:6px}
+  a.row:hover .go{color:var(--accent)}
+  .row .go .arw{transition:transform .15s}
+  a.row:hover .go .arw{transform:translateX(3px)}
+  .row.nolink{cursor:default}
+  .sublinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+  .sublinks a{font-family:var(--mono);font-size:12px;color:var(--accent);text-decoration:none;
+    border:1px solid var(--line-strong);border-radius:5px;padding:5px 10px;transition:.15s}
+  .sublinks a:hover{border-color:var(--accent);background:var(--accent-soft)}
+
+  /* stations: career context, scannable */
+  .stations{border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;background:var(--panel)}
+  .station{display:grid;grid-template-columns:148px 1fr;gap:22px;padding:24px 26px;border-top:1px solid var(--line)}
+  .station:first-child{border-top:0}
+  .st-date{font-family:var(--mono);font-size:12.5px;color:var(--sub);padding-top:5px;line-height:1.55}
+  .st-place{display:block;opacity:.7}
+  .station h3{font-family:var(--display);font-weight:600;font-size:1.16rem;letter-spacing:-.01em;margin:0 0 4px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
+  .station h3 .st-role{font-family:var(--mono);font-size:11.5px;font-weight:400;letter-spacing:.07em;text-transform:uppercase;color:var(--sub)}
+  .st-type{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--sub);margin:0 0 10px}
+  .st-what{color:var(--ink);font-size:.97rem;margin:0;max-width:62ch}
+
+  /* about / contact */
+  .about .prose{margin-bottom:26px}
+  .contact{display:flex;flex-wrap:wrap;gap:10px}
+  .contact a{font-family:var(--mono);font-size:13px;text-decoration:none;color:var(--ink);
+    border:1px solid var(--line-strong);border-radius:7px;padding:9px 14px;display:inline-flex;gap:8px;align-items:center;transition:.15s}
+  .contact a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .contact .lbl{color:var(--sub)}
+  .contact a:hover .lbl{color:var(--accent)}
+
+  footer{padding:38px 0 60px;font-family:var(--mono);font-size:12px;color:var(--sub);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  @media (max-width:640px){
+    body{font-size:16px}
+    .hero{padding:60px 0 50px}
+    section{padding:50px 0}
+    .row{grid-template-columns:34px 1fr;padding:22px 20px}
+    .row .go{grid-column:2;padding-top:4px}
+    .station{grid-template-columns:1fr;gap:7px;padding:22px 20px}
+    .st-date{padding-top:0}
+    .st-place{display:inline;opacity:.7}
+    .st-place::before{content:" · "}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <a class="mark" href="#top">LEONARDO PERKUNIC<span class="dot">.</span></a>
+    <div class="langswitch" role="group" aria-label="Language / Sprache">
+      <button data-set="de" aria-pressed="true">DE</button>
+      <button data-set="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Product Owner · B2B SaaS</p>
+      <h1>
+        <span class="de">Ich baue Produkte, als wäre die Firma meine.</span>
+        <span class="en">I build products like the company is mine.</span>
+      </h1>
+      <p class="lede">
+        <span class="de"><b>Zuerst das Ergebnis</b>, dann das Feature. Die Tools und Evals dazu bau ich mir selbst.</span>
+        <span class="en"><b>Business outcome first</b>, then the feature. I build my own tools and evals for it.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- HOW I WORK -->
+  <section id="how">
+    <div class="wrap">
+      <p class="sec-head"><span class="num">01</span>
+        <span class="de">Wie ich arbeite</span><span class="en">How I work</span></p>
+
+      <div class="prose de">
+        <p class="accentline">Ich nehme die Ziele einer Firma wörtlich. Das heißt manchmal, gegen den Strom im eigenen Haus zu argumentieren, weil am Ende das Ergebnis zählt und nicht die Bequemlichkeit im Raum.</p>
+        <div class="chain">
+          <span class="chain-label">Automations-Rebuild</span>
+          <div class="chain-flow">
+            <span class="node">Feature unbrauchbar</span><span class="arw">→</span>
+            <span class="node">müssen skalieren</span><span class="arw">→</span>
+            <span class="node">product-led sales statt sales-led</span><span class="arw">→</span>
+            <span class="node">Neubau auf Self-Service</span>
+          </div>
+        </div>
+        <p>Bei meinem letzten Produkt gab es keinerlei Prozesse, also habe ich sie von Grund auf aufgebaut. Keine Analytics? Hab User-Research selbst gemacht, über die Leute, die den meisten Kundenkontakt haben. Und wenn ich mit einer Scope-Entscheidung nicht einverstanden war: disagree and commit. Hab argumentiert, es dann mitgetragen, geliefert und hinterher geprüft, was das tatsächliche Outcome war.</p>
+        <p>Zum Antrieb: Mein CEO hat mich mal gefragt, wie ich so motiviert bleibe. Ich tue das, was mir Spaß macht und worin ich richtig gut bin. Eh klar, dass ich motiviert bin.</p>
+      </div>
+
+      <div class="prose en">
+        <p class="accentline">I take a company's goals literally. Sometimes that means arguing against the grain inside the company, because in the end what counts is the outcome, not the comfort in the room.</p>
+        <div class="chain">
+          <span class="chain-label">Automations rebuild</span>
+          <div class="chain-flow">
+            <span class="node">feature unusable</span><span class="arw">→</span>
+            <span class="node">have to scale</span><span class="arw">→</span>
+            <span class="node">product-led sales instead of sales-led</span><span class="arw">→</span>
+            <span class="node">rebuild on self-service</span>
+          </div>
+        </div>
+        <p>At my last product there were no processes at all, so I built them from scratch. No analytics? Ran the user research myself, through the people with the most customer contact. And when I didn't agree with a scope call: disagree and commit. I argued it, then committed, shipped, and checked afterward what the actual outcome was.</p>
+        <p>My CEO once asked how I stay this motivated. I do what I enjoy and what I'm really good at. No surprise I'm motivated.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT I LEARNED -->
+  <section id="learned">
+    <div class="wrap">
+      <p class="sec-head"><span class="num">02</span>
+        <span class="kick">Learning</span>
+        <span class="de">Wann nicht bauen richtig ist</span><span class="en">When not building is the right call</span></p>
+
+      <div class="prose de">
+        <p>Ich hab fast nur in Startups gearbeitet, unter hohem Druck, Dinge asap zu liefern. Das belohnt Machen über Nachdenken. Als PM war das, was Führung sagt, meine Arbeitsgrundlage: „wir müssen X" hieß für mich committen und liefern.</p>
+        <p>Manchmal liefen Worte und Taten auseinander. Beim Nachbohren kamen Widersprüche: zurückgenommene Aussagen, andere Daten als gedacht, Uneinigkeit auf Auftraggeberseite, die ich spürte, bevor sie ausgesprochen war. Mein Fehler war, das Vernünftige mitzunehmen und den Widerspruch liegen zu lassen. Ich hab weitergebaut, obwohl das Signal längst da war.</p>
+        <p>Das eigentliche Learning ging tiefer als „kein Wishful Thinking". Geschwindigkeit ist nicht immer der richtige Weg, auch nicht im Startup. Manchmal ist das Richtige, nichts zu bauen, bis die Widersprüche aufgelöst sind. Das Falsche zu bauen und später zu korrigieren kostet fast immer mehr, als gar nicht gebaut zu haben.</p>
+        <p>Heute behandle ich den Widerspruch als das Signal. Bei zentralen Initiativen mache ich Halt und fordere ein, dass er aufgelöst wird. Bei zweitrangigen trage ich sie mit einem großen Fragezeichen weiter. Ich urteile nach dem, was Leute tun, nicht nach dem, was sie sagen. Das gilt auch gegen mich selbst: Bei einem festgefahrenen Rollout ließ ich mich anfangs in die Silo-Denke des Teams ziehen, bevor ich sie durchbrach.</p>
+      </div>
+
+      <div class="prose en">
+        <p>I've worked almost entirely in startups, under high pressure to ship asap. That rewards doing over thinking. As a PM, what leadership says is the basis of my work: "we need X" meant commit and deliver.</p>
+        <p>Sometimes words and actions drifted apart. When I probed, contradictions surfaced: statements walked back, data different from what we assumed, misalignment on the sponsor side that I sensed before it was spoken. My mistake was to take the sensible part and let the contradiction sit. I kept building, even though the signal was already there.</p>
+        <p>The real lesson went deeper than "no wishful thinking". Speed isn't always the right path, not even at a startup. Sometimes the right move is to build nothing until the contradictions resolve. Building the wrong thing and correcting it later almost always costs more than not having built at all.</p>
+        <p>Now I treat the contradiction as the signal. On central initiatives I stop and insist it gets resolved. On secondary ones I carry them forward with a big question mark. I judge people by what they do, not what they say. That includes myself: on one stalled rollout I let the team's silo view pull me in before I broke out of it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section id="work">
+    <div class="wrap">
+      <p class="sec-head"><span class="num">03</span>
+        <span class="de">Ausgewählte Arbeit</span><span class="en">Selected work</span></p>
+
+      <div class="work">
+
+        <!-- 1: Automations case study -->
+        <a class="row" href="case-automations.html">
+          <div class="idx">01</div>
+          <div>
+            <h3>
+              <span class="de">Automations für Self-Service neu gebaut</span>
+              <span class="en">Rebuilding Automations for self-service</span>
+            </h3>
+            <p class="desc">
+              <span class="de">Reale, anonymisierte Case-Study. Ein Feature, das kein Kunde allein bedienen konnte, für Self-Service neu gebaut. Danach kamen über 80&nbsp;% der neuen Nutzer ohne Support aus.</span>
+              <span class="en">Real, anonymized case study. A feature no customer could use on their own, rebuilt for self-service. Afterward over 80% of new users could use it without support.</span>
+            </p>
+            <div class="tags"><span class="tag">Ownership</span><span class="tag">Judgment</span><span class="tag">Outcome</span></div>
+          </div>
+          <div class="go"><span class="de">Lesen</span><span class="en">Read</span> <span class="arw">→</span></div>
+        </a>
+
+        <!-- 2: ViewAR rollout case study -->
+        <a class="row" href="case-viewar.html">
+          <div class="idx">02</div>
+          <div>
+            <h3>
+              <span class="de">Einen festgefahrenen Rollout wieder in Gang gebracht</span>
+              <span class="en">Getting a stalled rollout moving again</span>
+            </h3>
+            <p class="desc">
+              <span class="de">Reale, anonymisierte Case-Study. Ein Enterprise-Rollout hing fast drei Monate im Silo-Streit fest. Ich bin zum Kunden in die Produktion gefahren, hab die Ursache selbst gesehen und beide nötigen Fixes durchgesetzt.</span>
+              <span class="en">Real, anonymized case study. An enterprise rollout stuck for nearly three months in a cross-team standoff. I drove to the customer's production floor, saw the cause myself, and drove through both fixes it actually needed.</span>
+            </p>
+            <div class="tags"><span class="tag">Judgment</span><span class="tag">Ownership</span><span class="tag">Outcome</span></div>
+          </div>
+          <div class="go"><span class="de">Lesen</span><span class="en">Read</span> <span class="arw">→</span></div>
+        </a>
+
+        <!-- 3: Docs-classification eval -->
+        <a class="row" href="eval.html">
+          <div class="idx">03</div>
+          <div>
+            <h3>
+              <span class="de">Doku, die mit der Entwicklung mitwächst</span>
+              <span class="en">Docs that keep up with development</span>
+            </h3>
+            <p class="desc">
+              <span class="de">Nach jedem Sprint erkennt das Tool, was neu entwickelt wurde und deshalb in die Doku muss, und schlägt mir die Änderung zum Freigeben vor. Damit das nicht nur behauptet ist, hab ich ein Eval gebaut, das misst, wie zuverlässig es die richtigen Stellen erwischt. Testset gehärtet, Recall über mehrere Runden gehalten.</span>
+              <span class="en">After each sprint the tool spots what was newly built and therefore needs documenting, and proposes the change for me to approve. To make that more than a claim, I built an eval that measures how reliably it catches the right spots. Test set hardened, recall held across several rounds.</span>
+            </p>
+            <div class="tags"><span class="tag">Rigor</span><span class="tag">Own tools</span></div>
+          </div>
+          <div class="go"><span class="de">Lesen</span><span class="en">Read</span> <span class="arw">→</span></div>
+        </a>
+
+        <!-- 4: Built products -->
+        <div class="row nolink">
+          <div class="idx">04</div>
+          <div>
+            <h3>
+              <span class="de">Selbst gebautes Produkt</span>
+              <span class="en">A product I've shipped</span>
+            </h3>
+            <p class="desc">
+              <span class="de">tvrd, selbst gebaut und live. Die Tools, die ich brauche, bau ich mir lieber selbst.</span>
+              <span class="en">tvrd, built by me and live. I'd rather build the tools I need myself.</span>
+            </p>
+            <div class="sublinks">
+              <a href="https://tvrd.app" target="_blank" rel="noopener">tvrd.app ↗</a>
+            </div>
+          </div>
+          <div class="go"><span class="tag" style="border-color:var(--line-strong)">Live</span></div>
+        </div>
+
+        <!-- 5: pm-toolkit -->
+        <a class="row" href="https://github.com/leonardoperk/pm-toolkit" target="_blank" rel="noopener">
+          <div class="idx">05</div>
+          <div>
+            <h3>pm-toolkit</h3>
+            <p class="desc">
+              <span class="de">Mein eigenes PM-Command-Set in Claude Code, das ich bei jeder Firma wiederverwende.</span>
+              <span class="en">My own set of PM commands in Claude Code, reused at every company.</span>
+            </p>
+            <div class="tags"><span class="tag">Framework</span><span class="tag">Reusable</span></div>
+          </div>
+          <div class="go"><span class="de">Code</span><span class="en">Code</span> <span class="arw">↗</span></div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STATIONS -->
+  <section id="stations">
+    <div class="wrap">
+      <p class="sec-head"><span class="num">04</span>
+        <span class="de">Stationen</span><span class="en">Background</span></p>
+
+      <div class="stations">
+
+        <!-- Chatlyn -->
+        <div class="station">
+          <span class="st-date">Sep 2025 – Apr 2026<span class="st-place">Wien</span></span>
+          <div>
+            <h3>Chatlyn <span class="st-role">Product Owner</span></h3>
+            <p class="st-type"><span class="de">Guest Communication für Hotels · B2B SaaS · AI-first</span><span class="en">Guest communication for hotels · B2B SaaS · AI-first</span></p>
+            <p class="st-what">
+              <span class="de">Produkt-Pivot auf AI-first eingeleitet: Kern-Infrastruktur, Pricing und PO-Prozesse über 6 Abteilungen von null aufgebaut, Alt-Features für eine saubere Foundation gecuttet.</span>
+              <span class="en">Kicked off the pivot to AI-first: built the core infrastructure, pricing and PO processes across 6 departments from scratch, cut legacy features for a clean foundation.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- ViewAR -->
+        <div class="station">
+          <span class="st-date">Mär 2025 – Sep 2025<span class="st-place">Wien</span></span>
+          <div>
+            <h3>ViewAR <span class="st-role">Product Owner</span></h3>
+            <p class="st-type"><span class="de">Industrial-AR-Assistent · B2B SaaS</span><span class="en">Industrial AR assistant · B2B SaaS</span></p>
+            <p class="st-what">
+              <span class="de">MVP geformt und den globalen Rollout-Deal über direkte Kundengespräche gesichert; die Ursache vor Ort identifiziert und den blockierten Rollout wieder in Gang gebracht.</span>
+              <span class="en">Shaped the MVP and secured the global rollout deal through direct customer conversations; identified the root cause on-site and got the blocked rollout moving again.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Gepardec -->
+        <div class="station">
+          <span class="st-date">Aug 2022 – Aug 2024<span class="st-place">Wien</span></span>
+          <div>
+            <h3>Gepardec <span class="st-role">Product Owner Coach</span></h3>
+            <p class="st-type"><span class="de">IT-Consulting · Public-Sector-ECM</span><span class="en">IT consulting · public-sector ECM</span></p>
+            <p class="st-what">
+              <span class="de">Zwei Product Owner von null zu voller Eigenständigkeit gecoacht, ein 15-köpfiges Waterfall-Team in zwei agile Teams überführt: Cycle Time −70 %, Throughput +170 %. Produkt gelauncht.</span>
+              <span class="en">Coached two product owners from zero to full independence, moved a 15-person waterfall team into two agile teams: cycle time down 70%, throughput up 170%. Launched the product.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Innerspace -->
+        <div class="station">
+          <span class="st-date">Feb 2020 – Feb 2022<span class="st-place">Innsbruck</span></span>
+          <div>
+            <h3>Innerspace <span class="st-role">Product Owner</span></h3>
+            <p class="st-type"><span class="de">Pharma-VR-Simulatoren · B2B SaaS</span><span class="en">Pharma VR simulators · B2B SaaS</span></p>
+            <p class="st-what">
+              <span class="de">MVP-Bau verantwortet und in rund einem Jahr mit NPS 70+ gelauncht; anschließend den globalen Rollout aufgesetzt und durchgeführt.</span>
+              <span class="en">Owned the MVP build and launched it in about a year at NPS 70+; then set up and ran the global rollout.</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / CONTACT -->
+  <section id="about" class="about">
+    <div class="wrap">
+      <p class="sec-head"><span class="num">05</span>
+        <span class="de">Über · Kontakt</span><span class="en">About · Contact</span></p>
+
+      <div class="prose de">
+        <p>Product Owner, Wien. B2B-SaaS. Hier erreichst du mich:</p>
+      </div>
+      <div class="prose en">
+        <p>Product Owner, Vienna. B2B SaaS. Here's where to reach me:</p>
+      </div>
+
+      <div class="contact">
+        <a href="mailto:leo.per@me.com"><span class="lbl">E-Mail</span> leo.per@me.com</a>
+        <a href="https://github.com/leonardoperk" target="_blank" rel="noopener"><span class="lbl">GitHub</span> leonardoperk ↗</a>
+        <a href="https://www.linkedin.com/in/leonardo-perkunic/" target="_blank" rel="noopener"><span class="lbl">LinkedIn</span> Profil ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>© 2026 Leonardo Perkunic</span>
+  <span><span class="de">Wien · Product Owner</span><span class="en">Vienna · Product Owner</span></span>
+</footer>
+
+<script>
+  (function(){
+    var root=document.documentElement;
+    var btns=document.querySelectorAll('.langswitch button');
+    function set(lang){
+      root.setAttribute('data-lang',lang);
+      root.setAttribute('lang',lang);
+      btns.forEach(function(b){b.setAttribute('aria-pressed', b.dataset.set===lang ? 'true':'false');});
+      try{localStorage.setItem('portfolio-lang',lang);}catch(e){}
+    }
+    var saved;
+    try{saved=localStorage.getItem('portfolio-lang');}catch(e){}
+    if(!saved){
+      // default DE; nudge EN only if browser clearly prefers English
+      saved=(navigator.language||'').toLowerCase().indexOf('en')===0 ? 'en':'de';
+    }
+    set(saved);
+    btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.set);});});
+  })();
+</script>
+
+</body>
+</html>
