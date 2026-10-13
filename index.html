@@ -139,6 +139,27 @@
   .sublinks a{font-family:var(--mono);font-size:12px;color:var(--accent);text-decoration:none;
     border:1px solid var(--line-strong);border-radius:5px;padding:5px 10px;transition:.15s}
   .sublinks a:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .sublinks a{display:inline-flex;align-items:center;gap:6px}
+  svg.gh{width:14px;height:14px;fill:currentColor;flex:none}
+
+  /* tvrd how-to dialog */
+  dialog#tvrd-howto{
+    width:min(460px,calc(100vw - 32px));padding:26px;border:1px solid var(--line-strong);border-radius:12px;
+    background:var(--panel);color:var(--ink);font-size:.97rem}
+  dialog#tvrd-howto::backdrop{background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}
+  .dlg-kick{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+  dialog#tvrd-howto h3{font-family:var(--display);font-weight:600;font-size:1.24rem;letter-spacing:-.01em;margin:0 0 14px}
+  dialog#tvrd-howto ol{margin:0 0 22px;padding-left:20px}
+  dialog#tvrd-howto li{margin-bottom:10px}
+  dialog#tvrd-howto li::marker{font-family:var(--mono);color:var(--accent)}
+  .dlg-qr{display:flex;align-items:center;gap:16px;margin:0 0 22px;font-family:var(--mono);font-size:12px;color:var(--sub)}
+  .dlg-qr svg{width:112px;height:112px;flex:none;border-radius:6px}
+  @media (pointer:coarse){.dlg-qr{display:none}}
+  .dlg-actions{display:flex;flex-wrap:wrap;gap:10px}
+  .dlg-actions a,.dlg-actions button{font-family:var(--mono);font-size:13px;text-decoration:none;cursor:pointer;
+    border:1px solid var(--line-strong);border-radius:7px;padding:9px 14px;background:transparent;color:var(--ink);transition:.15s}
+  .dlg-actions .dlg-primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .dlg-actions button:hover{border-color:var(--accent);color:var(--accent)}
 
   /* stations: career context, scannable */
   .stations{border:1px solid var(--line-strong);border-radius:12px;overflow:hidden;background:var(--panel)}
@@ -285,7 +306,7 @@
             </p>
             <div class="tags"><span class="tag">Framework</span><span class="tag">Reusable</span></div>
           </div>
-          <div class="go"><span class="de">Code</span><span class="en">Code</span> <span class="arw">↗</span></div>
+          <div class="go"><svg class="gh" viewBox="0 0 16 16" aria-hidden="true"><path id="gh-mark" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub <span class="arw">↗</span></div>
         </a>
 
         <!-- 2: Automations case study -->
@@ -351,12 +372,44 @@
               <span class="de">tvrd, selbst gebaut und live. Die Tools, die ich brauche, bau ich mir lieber selbst.</span>
               <span class="en">tvrd, built by me and live. I'd rather build the tools I need myself.</span>
             </p>
+            <div class="tags" style="margin-bottom:13px"><span class="tag">Mobile only</span></div>
             <div class="sublinks">
-              <a href="https://tvrd.app" target="_blank" rel="noopener">tvrd.app ↗</a>
+              <a href="https://tvrd.app" target="_blank" rel="noopener" id="tvrd-open">tvrd.app ↗</a>
+              <a href="https://github.com/leonardoperk/tvrd" target="_blank" rel="noopener"><svg class="gh" viewBox="0 0 16 16" aria-hidden="true"><use href="#gh-mark"/></svg>GitHub ↗</a>
             </div>
           </div>
           <div class="go"><span class="tag" style="border-color:var(--line-strong)">Live</span></div>
         </div>
+
+        <dialog id="tvrd-howto" aria-labelledby="tvrd-howto-title">
+          <p class="dlg-kick">tvrd · <span class="de">So nutzt du es</span><span class="en">How to use it</span></p>
+          <h3 id="tvrd-howto-title">
+            <span class="de">tvrd ist fürs Handy gebaut</span>
+            <span class="en">tvrd is built for your phone</span>
+          </h3>
+          <ol>
+            <li>
+              <span class="de">Link am Handy öffnen. Am Laptop sieht es aus wie eine schmale Webseite, das ist so gewollt.</span>
+              <span class="en">Open the link on your phone. On a laptop it looks like a narrow web page, that's by design.</span>
+            </li>
+            <li>
+              <span class="de">Auf den Home-Bildschirm legen. iPhone: Teilen, dann „Zum Home-Bildschirm“. Android: Menü ⋮, dann „Zum Startbildschirm hinzufügen“.</span>
+              <span class="en">Add it to your home screen. iPhone: Share, then "Add to Home Screen". Android: menu ⋮, then "Add to Home screen".</span>
+            </li>
+            <li>
+              <span class="de">Vom Home-Bildschirm starten. Dann läuft es wie eine App, deine Daten bleiben auf dem Gerät.</span>
+              <span class="en">Launch it from the home screen. It then runs like an app, your data stays on the device. The app itself is in German.</span>
+            </li>
+          </ol>
+          <div class="dlg-qr">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29 29" shape-rendering="crispEdges" role="img" aria-label="QR-Code tvrd.app"><path fill="#fff" d="M0 0h29v29h-29z"/><path stroke="#191914" d="M2 2.5h7m1 0h2m1 0h1m1 0h2m1 0h1m1 0h7m-25 1h1m5 0h1m2 0h1m3 0h4m1 0h1m5 0h1m-25 1h1m1 0h3m1 0h1m1 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m1 0h3m2 0h3m2 0h1m1 0h3m1 0h1m-25 1h1m1 0h3m1 0h1m2 0h1m1 0h1m1 0h2m3 0h1m1 0h3m1 0h1m-25 1h1m5 0h1m1 0h1m2 0h1m1 0h3m2 0h1m5 0h1m-25 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-17 1h3m1 0h1m1 0h3m-16 1h1m1 0h1m1 0h5m1 0h2m4 0h3m1 0h2m1 0h1m-24 1h3m4 0h1m2 0h1m2 0h1m1 0h1m1 0h1m5 0h1m-23 1h3m1 0h3m1 0h1m1 0h1m4 0h4m2 0h2m-25 1h4m3 0h2m5 0h2m2 0h1m1 0h1m-20 1h3m2 0h4m7 0h3m1 0h1m1 0h2m-20 1h1m3 0h1m1 0h3m4 0h2m1 0h2m1 0h1m-25 1h1m1 0h1m3 0h1m1 0h3m1 0h1m1 0h1m2 0h4m1 0h1m1 0h1m-24 1h1m6 0h2m3 0h1m1 0h1m1 0h2m1 0h1m2 0h1m-24 1h2m1 0h2m1 0h3m1 0h2m4 0h7m-15 1h1m1 0h2m3 0h2m3 0h2m2 0h1m-25 1h7m1 0h1m1 0h7m1 0h1m1 0h2m1 0h2m-25 1h1m5 0h1m1 0h4m2 0h1m1 0h1m3 0h4m-24 1h1m1 0h3m1 0h1m2 0h2m1 0h2m2 0h6m1 0h2m-25 1h1m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m1 0h2m2 0h4m-23 1h1m1 0h3m1 0h1m3 0h4m1 0h2m2 0h2m1 0h1m1 0h1m-25 1h1m5 0h1m1 0h4m3 0h3m3 0h1m-22 1h7m3 0h1m1 0h1m3 0h1m1 0h2m3 0h2"/></svg>
+            <span><span class="de">Am Laptop? Mit dem Handy scannen.</span><span class="en">On a laptop? Scan with your phone.</span></span>
+          </div>
+          <div class="dlg-actions">
+            <a class="dlg-primary" href="https://tvrd.app" target="_blank" rel="noopener"><span class="de">tvrd.app öffnen</span><span class="en">Open tvrd.app</span> ↗</a>
+            <button type="button" class="dlg-close"><span class="de">Schließen</span><span class="en">Close</span></button>
+          </div>
+        </dialog>
 
       </div>
     </div>
@@ -375,7 +428,7 @@
           <span class="st-date">Sep 2025 – Apr 2026<span class="st-place">Wien</span></span>
           <div>
             <h3>Chatlyn <span class="st-role">Product Owner</span></h3>
-            <p class="st-type"><span class="de">Guest Communication für Hotels · B2B SaaS · AI-first · auf 7 Monate befristet</span><span class="en">Guest communication for hotels · B2B SaaS · AI-first · 7-month fixed term</span></p>
+            <p class="st-type"><span class="de">Guest Communication für Hotels · B2B SaaS · AI-first · 6 Monate befristet, um 1,5 Monate verlängert</span><span class="en">Guest communication for hotels · B2B SaaS · AI-first · 6-month fixed term, extended by 1.5 months</span></p>
             <p class="st-what">
               <span class="de">Produkt-Pivot auf AI-first eingeleitet: Kern-Infrastruktur, Pricing und PO-Prozesse über 6 Abteilungen von null aufgebaut, Alt-Features für eine saubere Foundation gecuttet.</span>
               <span class="en">Kicked off the pivot to AI-first: built the core infrastructure, pricing and PO processes across 6 departments from scratch, cut legacy features for a clean foundation.</span>
@@ -401,10 +454,10 @@
           <span class="st-date">Aug 2022 – Aug 2024<span class="st-place">Wien</span></span>
           <div>
             <h3>Gepardec <span class="st-role">Product Owner Coach</span></h3>
-            <p class="st-type"><span class="de">IT-Consulting · Public-Sector-ECM</span><span class="en">IT consulting · public-sector ECM</span></p>
+            <p class="st-type"><span class="de">IT-Consulting · ECM-Solution</span><span class="en">IT consulting · ECM solution</span></p>
             <p class="st-what">
-              <span class="de">Zwei Product Owner von null zu voller Eigenständigkeit gecoacht, ein 15-köpfiges Waterfall-Team in zwei agile Teams überführt: Cycle Time −70 %, Throughput +170 %. Produkt gelauncht.</span>
-              <span class="en">Coached two product owners from zero to full independence, moved a 15-person waterfall team into two agile teams: cycle time down 70%, throughput up 170%. Launched the product.</span>
+              <span class="de">Product Owner von null zu voller Eigenständigkeit gecoacht, ein 15-köpfiges Waterfall-Team in zwei agile Teams überführt: Cycle Time −70 %, Throughput +170 %. Produkt gelauncht.</span>
+              <span class="en">Coached product owners from zero to full independence, moved a 15-person waterfall team into two agile teams: cycle time down 70%, throughput up 170%. Launched the product.</span>
             </p>
           </div>
         </div>
@@ -472,6 +525,20 @@
     }
     set(saved);
     btns.forEach(function(b){b.addEventListener('click',function(){set(b.dataset.set);});});
+
+    // tvrd: show how-to first so visitors don't land on a phone app in a desktop browser
+    var dlg=document.getElementById('tvrd-howto');
+    var opener=document.getElementById('tvrd-open');
+    if(dlg && opener && dlg.showModal){
+      opener.addEventListener('click',function(e){e.preventDefault();dlg.showModal();});
+      dlg.querySelector('.dlg-close').addEventListener('click',function(){dlg.close();});
+      dlg.addEventListener('click',function(e){
+        if(e.target!==dlg)return;
+        var r=dlg.getBoundingClientRect();
+        var inside=e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom;
+        if(!inside)dlg.close();
+      });
+    }
   })();
 </script>
 
