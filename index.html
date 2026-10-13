@@ -112,6 +112,8 @@
   .prose .chain-lead{margin:0 0 -12px}
   .chain{margin:24px 0;padding:18px 20px;border:1px solid var(--line-strong);border-radius:12px;background:var(--panel)}
   .chain-label{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:13px}
+  a.chain-label{text-decoration:none;width:fit-content}
+  a.chain-label:hover{text-decoration:underline;text-underline-offset:3px}
   .chain-flow{display:flex;flex-wrap:wrap;align-items:center;gap:9px 7px}
   .chain .node{font-family:var(--mono);font-size:12.5px;color:var(--ink);border:1px solid var(--line-strong);border-radius:6px;padding:6px 11px;background:var(--bg)}
   .chain .arw{font-family:var(--mono);color:var(--accent);font-size:14px;font-weight:600}
@@ -240,7 +242,7 @@
         <p class="accentline">Ich nehme die Ziele einer Firma wörtlich. Das heißt manchmal, gegen den Strom im eigenen Haus zu argumentieren, weil am Ende das Ergebnis zählt und nicht die Bequemlichkeit im Raum.</p>
         <p class="chain-lead">Beim letzten Produkt hieß das:</p>
         <div class="chain">
-          <span class="chain-label">Automations-Rebuild</span>
+          <a class="chain-label" href="case-automations.html">Automations-Rebuild · Case lesen →</a>
           <div class="chain-flow">
             <span class="node">Feature unbrauchbar</span><span class="arw">→</span>
             <span class="node">müssen skalieren</span><span class="arw">→</span>
@@ -256,7 +258,7 @@
         <p class="accentline">I take a company's goals literally. Sometimes that means arguing against the grain inside the company, because in the end what counts is the outcome, not the comfort in the room.</p>
         <p class="chain-lead">At my last product, that meant:</p>
         <div class="chain">
-          <span class="chain-label">Automations rebuild</span>
+          <a class="chain-label" href="case-automations.html">Automations rebuild · Read the case →</a>
           <div class="chain-flow">
             <span class="node">feature unusable</span><span class="arw">→</span>
             <span class="node">have to scale</span><span class="arw">→</span>
@@ -305,10 +307,13 @@
         <a class="row" href="https://github.com/leonardoperk/pm-toolkit" target="_blank" rel="noopener">
           <div class="idx">01</div>
           <div>
-            <h3>pm-toolkit</h3>
+            <h3>
+              <span class="de">Ein PM-Setup, das in jede Firma mitkommt</span>
+              <span class="en">A PM setup I take to every company</span>
+            </h3>
             <p class="desc">
-              <span class="de">Mein eigenes PM-Setup in Claude Code: Commands, Subagents, Skills und eigene Evals, die ich bei jeder Firma wiederverwende.</span>
-              <span class="en">My own PM setup in Claude Code: commands, subagents, skills and evals, reused at every company.</span>
+              <span class="de">pm-toolkit, gebaut in Claude Code: Commands, Subagents, Skills und eigene Evals.</span>
+              <span class="en">pm-toolkit, built in Claude Code: commands, subagents, skills and evals.</span>
             </p>
             <div class="tags"><span class="tag">Framework</span><span class="tag">Reusable</span></div>
           </div>
@@ -358,8 +363,8 @@
               <span class="en">Docs that keep up with development</span>
             </h3>
             <p class="desc">
-              <span class="de">Nach jedem Sprint erkennt das Tool, was neu entwickelt wurde und deshalb in die Doku muss, und schlägt mir die Änderung zum Freigeben vor. Damit das nicht nur behauptet ist, hab ich ein Eval gebaut, das misst, wie zuverlässig es die richtigen Stellen erwischt. Testset gehärtet, Recall über mehrere Runden gehalten.</span>
-              <span class="en">After each sprint the tool spots what was newly built and therefore needs documenting, and proposes the change for me to approve. To make that more than a claim, I built an eval that measures how reliably it catches the right spots. Test set hardened, recall held across several rounds.</span>
+              <span class="de">Tool und Eval aus meinem pm-toolkit. Nach jedem Sprint erkennt das Tool, was neu entwickelt wurde und deshalb in die Doku muss, und schlägt mir die Änderung zum Freigeben vor. Damit das nicht nur behauptet ist, hab ich ein Eval gebaut, das misst, wie zuverlässig es die richtigen Stellen erwischt. Testset gehärtet, Recall über mehrere Runden gehalten.</span>
+              <span class="en">Tool and eval from my pm-toolkit. After each sprint the tool spots what was newly built and therefore needs documenting, and proposes the change for me to approve. To make that more than a claim, I built an eval that measures how reliably it catches the right spots. Test set hardened, recall held across several rounds.</span>
             </p>
             <div class="tags"><span class="tag">Rigor</span><span class="tag">Own tools</span></div>
           </div>
@@ -371,12 +376,12 @@
           <div class="idx">05</div>
           <div>
             <h3>
-              <span class="de">Selbst gebautes Produkt</span>
-              <span class="en">A product I've shipped</span>
+              <span class="de">Training loggen mit so wenig Taps wie möglich</span>
+              <span class="en">Logging a workout in as few taps as possible</span>
             </h3>
             <p class="desc">
-              <span class="de">tvrd, selbst gebaut und live. Die Tools, die ich brauche, bau ich mir lieber selbst.</span>
-              <span class="en">tvrd, built by me and live. I'd rather build the tools I need myself.</span>
+              <span class="de">tvrd, mein Gym-Tracker. Für mich selbst gebaut, ich trainiere sechsmal die Woche damit. Die Werte der letzten Session sind vorbefüllt, ich korrigiere nur, was abweicht.</span>
+              <span class="en">tvrd, my gym tracker. Built for myself, I train with it six times a week. Last session's numbers come prefilled, I only fix what changed.</span>
             </p>
             <div class="tags"><span class="tag">Live</span><span class="tag">Mobile only</span></div>
           </div>
