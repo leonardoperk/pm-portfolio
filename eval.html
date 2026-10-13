@@ -99,7 +99,7 @@
   <div class="wrap">
     <p class="eyebrow">Product Owner · Rigor · Own tools · Self-scrutiny</p>
     <h1>An eval for my own PM tool</h1>
-    <p class="note">A Claude Code command I built reviews each sprint and flags which shipped stories need documentation. This eval measures the one thing that matters about it: <b>how many doc-worthy stories it misses.</b> Built end to end by me; the product in the test set is fictional, so the whole thing is shareable.</p>
+    <p class="note">A Claude Code command I built reviews each sprint and flags which shipped stories need documentation. I used it operationally at my last company. This eval measures the one thing that matters about it: <b>how many doc-worthy stories it misses.</b> Built end to end by me; the product in the test set is fictional, so the whole thing is shareable.</p>
   </div>
 </div>
 
@@ -129,7 +129,7 @@
 
     <h2><span class="n">05</span>v2: hardening the test until it could fail</h2>
     <p>v2 left the classifier alone and changed the test. I rewrote all 29 stories in raw Jira-ticket voice, where user impact has to be inferred: <em>"migrate to BullMQ, payloads unchanged"</em> instead of <em>"internal, no user change"</em>.</p>
-    <p>Recall held at 100%. That's the result worth having: the classifier genuinely infers doc-need from a bare ticket, it wasn't just matching tells. The harder test also surfaced the real weak spot, one false positive on a reliability change (a webhook retry), which is the cheap kind of error. The frontier moved from recall to precision.</p>
+    <p>Recall held at 100%, so the classifier genuinely infers doc-need from a bare ticket, it wasn't just matching tells. The harder test also surfaced the real weak spot, one false positive on a reliability change (a webhook retry), which is the cheap kind of error. The frontier moved from recall to precision.</p>
     <div class="metrics">
       <div class="metric">
         <p class="big">100%</p>
@@ -143,7 +143,7 @@
 
     <h2><span class="n">06</span>The honest limit on the number</h2>
     <div class="callout">
-      <p><strong>This is a small set.</strong> 100% recall means zero misses on 16 doc-worthy stories, not a perfect classifier. By the rule of three, zero misses on 16 is still consistent with a true recall near 80%. That's why the two-run story matters more than the headline number, and why I'd rather state the limit than lean on the 100%.</p>
+      <p><strong>This is a small set.</strong> 100% recall means zero misses on 16 doc-worthy stories, not a perfect classifier. By the rule of three, zero misses on 16 is still consistent with a true recall near 80%. That's why the two-run story matters more than the headline number.</p>
     </div>
 
     <h2><span class="n">07</span>What I deliberately left as future work</h2>
@@ -151,7 +151,7 @@
       <li><strong>Stage 2, output quality.</strong> This eval covers routing, which stories need docs. The command also drafts the doc text, and judging that is a separate, softer eval with no single right answer. Sketched, not built.</li>
       <li><strong>v3, scenario ambiguity.</strong> v2 hardened the phrasing; the scenarios are still one clean change per ticket. Real sprints bring compound and vague tickets, and that's where recall would finally bend.</li>
     </ul>
-    <p>Both are noted so the map is visible. One eval done well beats three half-built.</p>
+    <p>One eval done well beats three half-built.</p>
 
   </div>
 </article>
