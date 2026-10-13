@@ -113,7 +113,7 @@
     </ul>
 
     <h2><span class="n">03</span>The call</h2>
-    <p>A rebuild was already mandatory. During my onboarding, engineering found that upcoming changes to the app would break the existing automations anyway. The open question was what to rebuild toward, and that's where I made the call: self-service.</p>
+    <p>A rebuild was already mandatory. During my onboarding, engineering found that upcoming changes to the app would break the existing automations anyway, which would have been a catastrophe for existing customers. I'd have built other things first, but this had to ship now. The open question was what to rebuild toward, and that's where I made the call: self-service.</p>
     <p>My reasoning went past the feature itself. If we wanted to scale the way the CEO intended, with onboarding and retention numbers that bad, the math didn't work. The core of the product had to be something a real customer could use without us. So I argued a broader point: the company had to move from sales-led to product-led sales, and self-service was the foundation for that, both for how the product gets sold and demoed and for how customers onboard and stay. Automations was where to prove it.</p>
 
     <h2><span class="n">04</span>Working it out without data</h2>
@@ -125,8 +125,7 @@
     <div class="callout">
       <p><strong>The product bet: map automations onto the guest journey.</strong> That was the big assumption. I built the feature around a five-step guest journey we defined ourselves, each step tied to a concrete PMS trigger. When the trigger fires, the automated WhatsApp template goes out. Each event holds up to three messages, and each message has a timing (at the trigger, before, or after). So outbound messaging maps onto the guest's phase of the stay, and the marketer can shape content to fit where the guest actually is. That mattered to our ICP: high-end hotels that care a lot about the guest experience.</p>
     </div>
-    <p>One limit I'll name: this guest-journey model was validated through the people closest to the customer, not with hoteliers directly. Under the no-analytics constraint that was the fastest reliable signal I had, but it was tested against support's picture of the user, not the user. With more runway I'd have put it in front of real hoteliers.</p>
-    <p><strong>Prioritization</strong> was the easy part. I wanted to build other things first, but this had to ship now, otherwise automations would stop working entirely, and that would have been a catastrophe for existing customers.</p>
+    <p>One limit I'll name: this guest-journey model was validated through the people closest to the customer, not with hoteliers directly. Under the no-analytics constraint that was the fastest reliable signal I had, but it was tested against support's picture of the user, not the user.</p>
 
     <h2><span class="n">06</span>A decision I lost, and why I committed anyway</h2>
     <p>Early on I pushed back hard on a webhook-receive feature the CPO wanted: an endpoint customers could send data to and then use in automations, with how the data gets there left to them. To me it was the old mistake again, a feature for a technical user we didn't have.</p>
@@ -158,6 +157,7 @@
     <ul>
       <li>Small timezone bug for the first few days. We hotfixed it.</li>
       <li>The webhook-receive call I lost is as much an organizational lesson as a product one: loud non-ICP users and a single reference customer can pull scope away from a strategy you've just set.</li>
+      <li>With more runway I'd have put the guest-journey model in front of real hoteliers instead of validating it only through support.</li>
     </ul>
 
   </div>

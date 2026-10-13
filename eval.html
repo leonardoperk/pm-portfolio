@@ -128,7 +128,7 @@
     <p>It was. My story descriptions leaked the answers, phrases like "same UI" and "no user-facing change". The classifier was reading labels, not judging ambiguous stories. A 100% that comes from an easy test is exactly the "green doesn't mean correct" failure mode the tool is supposed to guard against.</p>
 
     <h2><span class="n">05</span>v2: hardening the test until it could fail</h2>
-    <p>v2 wasn't a change to the classifier. It was a change to the test. I rewrote all 29 stories in raw Jira-ticket voice, where user impact has to be inferred: <em>"migrate to BullMQ, payloads unchanged"</em> instead of <em>"internal, no user change"</em>.</p>
+    <p>v2 left the classifier alone and changed the test. I rewrote all 29 stories in raw Jira-ticket voice, where user impact has to be inferred: <em>"migrate to BullMQ, payloads unchanged"</em> instead of <em>"internal, no user change"</em>.</p>
     <p>Recall held at 100%. That's the result worth having: the classifier genuinely infers doc-need from a bare ticket, it wasn't just matching tells. The harder test also surfaced the real weak spot, one false positive on a reliability change (a webhook retry), which is the cheap kind of error. The frontier moved from recall to precision.</p>
     <div class="metrics">
       <div class="metric">
