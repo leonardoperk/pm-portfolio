@@ -28,12 +28,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f6f6f3;
-    --panel:#ffffff;
+    --bg:#eeede7;
+    --panel:#fbfbf8;
     --ink:#191914;
-    --sub:#57574f;
-    --line:#e4e3dc;
-    --line-strong:#cfcec6;
+    --sub:#4f4f48;
+    --line:#dbd9d1;
+    --line-strong:#c2c0b7;
     --accent:#2f3bff;
     --accent-soft:rgba(47,59,255,.08);
     --max:940px;
@@ -205,6 +205,64 @@
     .st-place{display:inline;opacity:.7}
     .st-place::before{content:" · "}
   }
+
+  /* competency web (Kompetenz-Netz): glass orb + SVG web, namespaced cw- */
+  :root{--warm:#b8742e;--cw-stage:#f6f6f3;--cw-grid:rgba(25,25,20,.10);--cw-grid5:rgba(25,25,20,.22);--cw-lab:#3a3a33}
+  @media (prefers-color-scheme: dark){:root{--warm:#d9a46c;--cw-stage:#060608;--cw-grid:rgba(241,240,233,.07);--cw-grid5:rgba(241,240,233,.16);--cw-lab:#c9c8bf}}
+  .cw-stage{position:relative;height:640px;border-radius:12px;overflow:hidden;background:var(--cw-stage);border:1px solid var(--line)}
+  .cw-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .cw-stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .cw-ring{fill:none;stroke:var(--cw-grid);stroke-width:1}.cw-ring.o{stroke:var(--cw-grid5)}
+  .cw-spoke{stroke:var(--cw-grid);stroke-width:1}
+  .cw-bnd{stroke:var(--accent);stroke-opacity:.4;stroke-width:1;stroke-dasharray:2 4}
+  .cw-poly{stroke:var(--accent);stroke-width:1.5;stroke-linejoin:round;fill:var(--accent)}
+  .cw-t1{fill:var(--ink)}.cw-t2{fill:var(--sub)}.cw-t2.dev,.cw-tc.dev{fill:var(--warm)}.cw-tc{fill:var(--cw-lab)}.cw-tz{fill:var(--accent)}
+  .cw-nd{fill:var(--ink)}.cw-nd.dev{fill:var(--warm)}
+  .cw-lab{font-family:var(--mono);cursor:pointer}
+  .cw-top{position:absolute;top:16px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:center;gap:12px;pointer-events:none}
+  .cw-crumb{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub)}
+  .cw-crumb b{color:var(--accent);font-weight:500}
+  .cw-btns{display:flex;gap:8px;pointer-events:auto}
+  .cw-btn{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:7px 12px;border-radius:6px;border:1px solid var(--line-strong);background:transparent;color:var(--sub);cursor:pointer;transition:.15s}
+  .cw-btn:hover{color:var(--ink);border-color:var(--sub)}
+  .cw-info{width:30px;height:30px;padding:0;border-radius:50%;font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:0;text-transform:none;display:grid;place-items:center}
+  .cw-info[aria-expanded="true"]{color:var(--accent);border-color:var(--accent)}
+  .cw-pop{position:absolute;top:58px;right:20px;width:min(400px,calc(100% - 40px));max-height:calc(100% - 110px);overflow:auto;background:var(--panel);border:1px solid var(--line-strong);border-radius:12px;padding:18px 20px;z-index:5;display:none;box-shadow:0 12px 32px rgba(0,0,0,.18)}
+  .cw-pop.open{display:block}
+  .cw-pop .cw-k{margin:14px 0 4px}.cw-pop .cw-k:first-child{margin-top:0}
+  .cw-pop p{margin:0;font-size:14px;line-height:1.6;color:var(--sub)}
+  .cw-pop ol{margin:4px 0 0;padding-left:18px;font-size:14px;line-height:1.6;color:var(--sub)}
+  .cw-legend{position:absolute;bottom:16px;left:20px;right:20px;display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--sub);opacity:.85;pointer-events:none}
+  .cw-legend i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--warm);margin-right:6px;vertical-align:1px}
+  .cw-detail{margin-top:14px;border:1px solid var(--line-strong);border-radius:12px;background:var(--panel);padding:20px 22px;min-height:64px}
+  .cw-k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  .cw-detail h3{font-family:var(--display);font-weight:600;font-size:1.15rem;letter-spacing:-.01em;margin:0 0 6px}
+  .cw-detail p{margin:0;color:var(--sub);font-size:15px;line-height:1.6;max-width:68ch}
+  .cw-lvl{font-family:var(--mono);font-size:11px;font-weight:400;color:var(--sub);margin-left:8px;letter-spacing:.04em}
+  .cw-lvl.dev{color:var(--warm)}
+  .cw-bl{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+  .cw-st{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink);margin-bottom:6px}
+  .cw-detail a{color:var(--accent);text-decoration:none;font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+  .cw-detail a:hover{text-decoration:underline;text-underline-offset:3px}
+  .cw-more{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);display:grid;grid-template-columns:150px 1fr;gap:6px 16px}
+  .cw-ml{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);padding-top:3px}
+  .cw-ml.dev{color:var(--warm)}
+  .cw-mt{font-size:14px;color:var(--sub);line-height:1.6}
+  .cw-list{margin-top:14px;display:grid;gap:2px}
+  .cw-list .cw-ga{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:14px 0 4px}
+  .cw-list .cw-ga:first-child{margin-top:0}
+  .cw-list button{display:flex;justify-content:space-between;gap:12px;width:100%;text-align:left;background:transparent;border:0;border-top:1px solid var(--line);padding:10px 0;font:inherit;font-size:15px;color:var(--ink);cursor:pointer}
+  .cw-list button span{font-family:var(--mono);font-size:11px;color:var(--sub);white-space:nowrap}
+  .cw-list button span.dev{color:var(--warm)}
+  .cw-back{display:inline-block;margin-bottom:12px;background:none;border:0;padding:0;font-family:var(--mono);font-size:12px;color:var(--accent);cursor:pointer}
+  @media (max-width:640px){
+    .cw-stage{height:470px}
+    .cw-top{top:12px;left:14px;right:14px}
+    .cw-crumb{font-size:10px;max-width:46%}
+    .cw-legend{bottom:12px;left:14px;right:14px;font-size:9.5px;flex-direction:column;gap:4px}
+    .cw-more{grid-template-columns:1fr}
+    .cw-detail{padding:18px}
+  }
 </style>
 </head>
 <body>
@@ -236,10 +294,46 @@
     </div>
   </div>
 
+  <!-- COMPETENCIES -->
+  <section id="competencies">
+    <div class="wrap">
+      <p class="sec-head"><span class="num">01</span>
+        <span class="de">Kompetenzen</span><span class="en">Competencies</span></p>
+      <div class="cw-stage" id="cw-stage">
+        <canvas id="cw-gl" aria-hidden="true"></canvas>
+        <svg id="cw-svg" role="img" aria-labelledby="cw-svg-t"><title id="cw-svg-t">Kompetenz-Netz</title></svg>
+        <div class="cw-top">
+          <span class="cw-crumb" id="cw-crumb"></span>
+          <span class="cw-btns"><button class="cw-btn" id="cw-tg" type="button"></button><button class="cw-btn cw-info" id="cw-ib" type="button" aria-expanded="false" aria-controls="cw-pop">i</button></span>
+        </div>
+        <div class="cw-pop" id="cw-pop" role="dialog">
+          <div class="de">
+            <div class="cw-k">Klassifizierung</div><p>Die Bereiche und Kompetenzen kommen aus Ravi Mehtas <a href="https://www.ravi-mehta.com/product-manager-skills/" target="_blank" rel="noopener">Product Competency Toolkit</a>, entstanden bei TripAdvisor und eines der meistreferenzierten öffentlichen PM-Kompetenzmodelle: vier Bereiche mit je drei Kompetenzen. Dazu kommt ein fünfter Bereich, Ergänzungen. Das ist, was ich mitbringe, das Modell aber nicht abdeckt.</p>
+            <div class="cw-k">Skala</div><p>Die Ringe zeigen, wie gut eine Kompetenz belegt ist, nicht wie gut ich im Vergleich zu anderen bin. Grundlage sind meine vier Stationen seit 2020.</p>
+            <ol><li>berührt</li><li>an einer Station belegt</li><li>an mehreren Stationen belegt</li><li>an mehreren Stationen, mit sichtbarem Ergebnis</li><li>durchgängig, mit Ergebnis oder Zahl</li></ol>
+            <div class="cw-k">Übersicht und Detail</div><p>Jede Ecke zeigt den Schnitt ihres Bereichs. Im Detail siehst du alle 16 Kompetenzen.</p>
+            <div class="cw-k">Entwicklungsfelder</div><p>Liegt eine Kompetenz unter 5, ist sie ein Entwicklungsfeld: warm markiert, und die Flüssigkeit in der Kugel bewegt sich dort stärker.</p>
+            <div class="cw-k">Belege</div><p>Zu jeder Kompetenz stehen die wichtigsten Belege: die Lage, was ich getan habe, was rausgekommen ist. Reicht dir einer nicht, frag mich.</p>
+          </div>
+          <div class="en">
+            <div class="cw-k">Classification</div><p>The areas and competencies come from Ravi Mehta's <a href="https://www.ravi-mehta.com/product-manager-skills/" target="_blank" rel="noopener">Product Competency Toolkit</a>, built at TripAdvisor and one of the most-referenced public PM competency models: four areas with three competencies each. On top there's a fifth area, Beyond the framework. That's what I bring that the model doesn't cover.</p>
+            <div class="cw-k">Scale</div><p>The rings show how well a competency is evidenced, not how good I am compared to others. It's based on my four roles since 2020.</p>
+            <ol><li>touched</li><li>evidenced at one company</li><li>evidenced at several companies</li><li>at several companies, with visible results</li><li>everywhere, with results or numbers</li></ol>
+            <div class="cw-k">Overview and detail</div><p>Each corner shows the average of its area. The detail view shows all 16 competencies.</p>
+            <div class="cw-k">Development areas</div><p>If a competency is below 5, it's a development area: marked warm, and the liquid in the sphere moves more there.</p>
+            <div class="cw-k">Evidence</div><p>Each competency lists the key evidence: the situation, what I did, what came out of it. If one isn't enough, ask me.</p>
+          </div>
+        </div>
+        <div class="cw-legend"><span id="cw-leg1"></span><span><i></i><span id="cw-leg2"></span></span></div>
+      </div>
+      <div class="cw-detail" id="cw-d"></div>
+    </div>
+  </section>
+
   <!-- HOW I WORK -->
   <section id="how">
     <div class="wrap">
-      <p class="sec-head"><span class="num">01</span>
+      <p class="sec-head"><span class="num">02</span>
         <span class="de">Wie ich arbeite</span><span class="en">How I work</span></p>
 
       <div class="prose de">
@@ -279,7 +373,7 @@
   <!-- WHAT I LEARNED -->
   <section id="learned">
     <div class="wrap">
-      <p class="sec-head"><span class="num">02</span>
+      <p class="sec-head"><span class="num">03</span>
         <span class="kick">Learning</span>
         <span class="de">Wann nicht bauen richtig ist</span><span class="en">When not building is the right call</span></p>
 
@@ -302,7 +396,7 @@
   <!-- SELECTED WORK -->
   <section id="work">
     <div class="wrap">
-      <p class="sec-head"><span class="num">03</span>
+      <p class="sec-head"><span class="num">04</span>
         <span class="de">Ausgewählte Arbeit</span><span class="en">Selected work</span></p>
 
       <div class="work">
@@ -432,7 +526,7 @@
   <!-- STATIONS -->
   <section id="stations">
     <div class="wrap">
-      <p class="sec-head"><span class="num">04</span>
+      <p class="sec-head"><span class="num">05</span>
         <span class="de">Stationen</span><span class="en">Background</span></p>
 
       <div class="stations">
@@ -497,7 +591,7 @@
   <!-- ABOUT / CONTACT -->
   <section id="about" class="about">
     <div class="wrap">
-      <p class="sec-head"><span class="num">05</span>
+      <p class="sec-head"><span class="num">06</span>
         <span class="de">Über mich · Kontakt</span><span class="en">About me · Contact</span></p>
 
       <div class="prose de">
@@ -555,6 +649,169 @@
       });
     }
   })();
+</script>
+
+<script>
+/* competency web: glass orb (WebGL) + SVG web. Source of truth for content: leo-lab/cv/pm-profil-spider-web.md */
+(function(){
+  var stage=document.getElementById('cw-stage');if(!stage)return;
+  var BEL={"de": [{"name": "Feature Specification", "level": "durchgängig belegt", "main": [{"t": "Gepardec · IT-Consulting, Versicherungskunde", "x": "Der Kunde wollte seinen Erstattungsprozess digitalisieren, bis dahin lief alles über einen Papierakt mit fachlichen Prüfungen. Ich habe die Product Owner dabei unterstützt, die regulatorischen Vorgaben in Epics und Stories zu übersetzen und zu priorisieren. Das Fachliche kannten sie, ich den Analyseprozess. Das digitale Produkt ist live gegangen und hat den Papierakt ersetzt."}, {"t": "Letzte Station · SaaS für Hotels", "x": "Es gab keinerlei Prozesse. Ich habe PRDs vor dem Bau als festen Schritt über sechs Abteilungen eingeführt und für neue Feature Requests Prototypen direkt aus den Tickets gebaut, angebunden ans Design System. Die Spec stand damit in Tagen statt Wochen."}], "more": "Innerspace (Anforderungen direkt aus den Zwei-Wochen-Loops mit Kunden), ViewAR (PRDs, Epics, Stories).", "notyet": ""}, {"name": "Product Delivery", "level": "durchgängig belegt", "main": [{"t": "Gepardec · IT-Consulting, Versicherungskunde", "x": "Ein 15-köpfiges Team hat im Wasserfall gearbeitet, die Cycle Time lag bei 10 Arbeitstagen. Ich habe es in zwei agile Teams überführt, Evidence-Based Management eingeführt und TDD, CI und automatisierte Deployments angestoßen und umgesetzt. Cycle Time runter auf 3 Arbeitstage (−70 %), Throughput +170 %."}, {"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Ein Produkt mit eigener Hardware, das bei Kunden weltweit laufen muss. Hab es über den ganzen Lifecycle verantwortet, von Hardware-Setup und Versand bis Support und Updates, und den Entwicklungsprozess laufend verbessert. Ergebnis: +110 % Entwicklungseffizienz, gemessen an der Cycle Time."}], "more": "Releases an allen vier Stationen geplant und begleitet.", "notyet": ""}, {"name": "Quality Assurance", "level": "durchgängig belegt", "main": [{"t": "ViewAR und letzte Station", "x": "Neue Versionen hab ich vor jedem Release abgenommen und dafür hands-on mit den Devs durchgespielt. Dabei haben wir des Öfteren Bugs gefunden, die noch gefixt wurden oder dafür gesorgt haben, dass etwas nicht released wurde."}, {"t": "ViewAR · AR-Assistent für die Industrie", "x": "Die AR-Navigation muss beim Kunden auf wenige Zentimeter genau funktionieren, in der Produktionshalle, nicht im Büro. Ich habe mich dafür eingesetzt, so nah wie möglich am User zu testen: gleiche Hardware, gleiche Konfiguration und Version, die räumlichen Gegebenheiten so gut es geht nachgebaut."}], "more": "Innerspace (Abnahme gemeinsam mit dem Kunden), Gepardec (TDD, CI und automatisierte Deployments eingeführt). Prinzip an allen Stationen: Bricht die Kernfunktion, kommt ein Hotfix. Alles andere wird gefixt, sobald der Pain groß genug ist.", "notyet": ""}, {"name": "Fluency with Data", "level": "mehrfach belegt", "main": [{"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Unsere Trainings liefen bei den Kunden vor Ort, und wir wollten wissen, wo User hängen bleiben. Ich habe die Requirements für ein Dashboard festgelegt (WAU, MAU, Abbruchpunkte im Training), umgesetzt hat es das Team. Daran haben wir gesehen, dass viele User an einer Stelle im Modul aussteigen. Ursache war schwierige UX, die haben wir gefixt."}, {"t": "Gepardec · IT-Consulting, Versicherungskunde", "x": "Mit Evidence-Based Management haben wir Cycle Time und Throughput laufend gemessen und die Arbeitsweise daran ausgerichtet."}], "more": "Innerspace (OKRs und KPIs, quantitative Befragungen von Fachexperten), letzte Station (Vorarbeit für Product Analytics, vor meinem Abgang nicht mehr umgesetzt), eigenes Eval (Recall bewusst über Precision gewichtet).", "notyet": "Experimente wie A/B-Tests, eigene Datenabfragen ohne AI."}, {"name": "Voice of the Customer", "level": "durchgängig belegt", "main": [{"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Am Anfang gab es nur Ideen, kein Produkt. Ein Jahr lang hab ich alle zwei Wochen Feedback-Loops mit den Kunden geführt, unter anderem Playtesting-Sessions, in denen sie direkt gesagt haben, was passt und was nicht. Das ging sofort in die Entwicklung. Nach 12 Monaten hatten wir Product/Market Fit: Die Kunden haben das Training in ihr Learning Management System übernommen, für eine Pflichtzertifizierung. Vertragsverlängerung gab es auch, NPS über 70."}, {"t": "ViewAR · AR-Assistent für die Industrie", "x": "Ich habe Interviews mit allen relevanten bestehenden und potenziellen Kunden geführt, remote und vor Ort. Daraus kam die Entscheidung, welche Features wir cutten, was wir neu bauen und dass das Produkt auf Workflows setzt."}], "more": "Gepardec (Interviews vor Ort mit allen Fachbereichen), Wettbewerbsanalysen bei Innerspace, ViewAR und der letzten Station, letzte Station (ohne Analytics qualitativ über Support und Customer Success).", "notyet": ""}, {"name": "User Experience Design", "level": "durchgängig belegt", "main": [{"t": "Letzte Station · SaaS für Hotels", "x": "Das Automations-Feature hat der Support bei jedem Kunden von Hand eingerichtet. Wir haben es neu aufgebaut, mit vorausgefüllten, editierbaren Vorlagen, Vorschlägen und Tooltips. Von rund 20 neuen Kunden brauchten danach nur noch 3 bis 4 Support, über 80 % der neuen Nutzer kamen allein zurecht."}, {"t": "An allen Stationen mit Design", "x": "Bei UI/UX war ich die Stimme des Kunden. Den Designern hab ich alles mitgegeben, was ich über die User wusste, und ihre Prototypen rigoros durchgetestet, schon ab der ersten Skizze."}], "more": "Innerspace (Usability-Tests, Playtesting, UX-Fix nach Abbruchanalyse), ViewAR (UI/UX der Workflows stark verbessert).", "notyet": ""}, {"name": "Business Outcome Ownership", "level": "mehrfach mit Ergebnis", "main": [{"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Wir haben mit OKRs und KPIs gearbeitet, hauptverantwortlich für das ARR-Ziel war ich. Berichtet hab ich alle zwei Monate an Gründer und Investoren. Ziel erreicht, ARR +370 %, großteils durch zwei globale Rollouts."}, {"t": "ViewAR · AR-Assistent für die Industrie", "x": "Ich habe ein ARR-Ziel getragen, und ohne einen großen Deal war es nicht realistisch. Ich habe das Produkt auf den Kunden ausgerichtet, der Workflows am meisten brauchte, einen globalen Getränkekonzern. Nachdem der Rollout-Blocker gelöst war, hat er unterschrieben, mit Aussicht auf mehr."}], "more": "letzte Station (altes Produkt auf Lifeline gesetzt, um die Bestandskunden zu halten, während alle anderen Ressourcen ins neue AI-first-Produkt gehen).", "notyet": "eigene Business Cases, P&L, Unit Economics."}, {"name": "Product Vision & Roadmapping", "level": "durchgängig belegt", "main": [{"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Als ich angefangen habe, gab es nur Ideen. Die Strategie haben wir im Gründerteam erarbeitet, verantwortet habe ich sie und im ersten Jahr laufend angepasst. Daraus wurde ein Trainingsprogramm aus sechs Modulen, mit dem Reinraum-Operatoren ihre Pflichtzertifizierung machen. Product/Market Fit nach 12 Monaten."}, {"t": "ViewAR · AR-Assistent für die Industrie", "x": "Meine These von Anfang an: Das Produkt lebt und stirbt mit Workflows. Navigation und Schadensmeldungen sind coole Features, getragen wird das Produkt von Workflows. Danach haben wir Kunden ausgesucht und Workflows für Self-Service umgebaut. Ein globaler Getränkekonzern hat unterschrieben und wollte mit uns neue Arten von Workflows bauen."}], "more": "letzte Station (Lifeline-Strategie, neues Fundament fürs AI-first-Produkt vor weiteren Features priorisiert, Vision einer AI, die vorausdenkt und den Gast ins Zentrum stellt), Gepardec (Roadmap mit den Product Ownern). Priorisierung immer aus der Strategie, riskanteste Annahmen zuerst.", "notyet": ""}, {"name": "Strategic Impact", "level": "durchgängig belegt", "main": [{"t": "Letzte Station · SaaS für Hotels", "x": "Das Unternehmen hat sales-led verkauft, Features wurden beim Kunden von Hand eingerichtet. Ich habe den Wechsel zu product-led sales vorgeschlagen, mit Self-Service als Basis, und mit dem Automations-Umbau den Beweis geliefert. Das Argument hat getragen: Danach wurden alle Inboxen auf Self-Service umgebaut. Dazu das Preismodell von pro User auf pro Zimmer umgestellt, weil pro User unsere AI-Strategie untergraben hätte."}, {"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Kein Kunde hatte VR-Hardware, und unsere Software lief nur damit. Ich habe entschieden, dass die Hardware zum Produkt gehört und die Lizenzpreise das abdecken müssen. Die Kalkulation selbst hat der CFO gemacht."}], "more": "ViewAR (Zielsegment: Kunden, die vor allem Workflows brauchen), Release Notes an allen Stationen, Sales Enablement und Abstimmung mit Marketing bei Innerspace, ViewAR und der letzten Station.", "notyet": ""}, {"name": "Stakeholder Management", "level": "durchgängig belegt", "main": [{"t": "Letzte Station · SaaS für Hotels", "x": "Erster Product Owner im Unternehmen, sechs Abteilungen, keine gemeinsamen Prozesse und keine Weisungsbefugnis. In zwei Monaten hab ich alle auf einen Prozess gebracht: PRDs vor dem Bau, Decision Log."}, {"t": "ViewAR · AR-Assistent für die Industrie", "x": "Ein globaler Rollout stockte: Sales meldete einen kritischen Bug, Engineering bestritt ihn. Ich bin zum Kunden gefahren, habe das Problem vor Ort reproduziert und Belege mitgebracht, mit denen Engineering arbeiten konnte. Die Ursachen lagen auf beiden Seiten, der Rollout lief weiter.[[viewar]]"}], "more": "Gepardec (zwei Jahre allein beim Kunden, Abstimmung mit allen Fachbereichen), Innerspace (Vertragsverhandlungen mit globalen Pharmakonzernen).", "notyet": ""}, {"name": "Team Leadership", "level": "durchgängig belegt", "main": [{"t": "Gepardec · IT-Consulting, Versicherungskunde", "x": "Zwei Product Owner sollten ihre Rolle selbst übernehmen, das war von Anfang an das Ziel. Ich habe sie gecoacht und die Teams agil aufgestellt. Am Ende haben POs und Teams mich nicht mehr gebraucht."}, {"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Ich habe zwei Personen fachlich und disziplinarisch geführt, Customer Success und Support. Die Person im Customer Success hat später ein eigenes Team aufgebaut."}], "more": "ViewAR (eine Person fachlich geführt, UI/UX), letzte Station (zwei Personen fachlich geführt, UI/UX und Integrationen), Entwicklungsteams an allen Stationen koordiniert. Spanne: maximal zwei direkte Reports pro Station.", "notyet": ""}, {"name": "Managing Up", "level": "durchgängig belegt", "main": [{"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Ich habe direkt an den Gründer berichtet und alle zwei Monate an ein Steering Committee mit zwei Investoren."}, {"t": "Letzte Station · SaaS für Hotels", "x": "Ich habe an den Gründer und CEO berichtet. Den Wechsel zu product-led sales und den Vorrang fürs neue Fundament vor weiteren Features hab ich durchgebracht."}], "more": "Gepardec (direkt an die Abteilungsleitung des Kunden), ViewAR (an den CEO).", "notyet": ""}, {"name": "Technik & Architektur", "level": "mehrfach mit Ergebnis", "main": [{"t": "Letzte Station · SaaS für Hotels", "x": "Beim Datenmodell fürs neue AI-Produkt haben wir mit Engineering und CTO lange diskutiert, was fundamental ist. Meine Position: der Gast, Buchungen und Konversationen hängen an ihm. Beim RAG-Setup hab ich mit größeren und kleineren Chunks experimentiert, weil die AI die Knowledge Base nicht immer so genutzt hat, wie wir wollten."}, {"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Unser Produkt war Hardware plus Software: VR-Headset, Infrarot-Sensoren zur Lokalisierung, Gaming-PC. Setup, Test, Versand und Aufbau beim Kunden lagen bei mir, inklusive Einbindung ins Kundennetzwerk und Übergabe der Lernergebnisse an deren Learning Management System."}], "more": "ViewAR (Ursachen eines Rollout-Blockers vor Ort gefunden, in den Scan-Daten und in einem Bug), Gepardec (TDD, CI und automatisierte Deployments eingeführt).", "notyet": "eigene Engineering-Tiefe ohne AI, also Code lesen oder Daten abfragen."}, {"name": "Prozesse & Organisation aufbauen", "level": "durchgängig belegt", "main": [{"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Den PM-Prozess hab ich von Grund auf aufgebaut, die Abläufe rund ums Produkt hands-on: Hardware-Setup, Test, Versand, Aufbau, Support, Wartung. Gestartet sind wir mit XP. Als klar war, dass das für die Zusammenarbeit mit einem Konzern zu wenig Struktur ist, haben wir auf Scrum umgestellt."}, {"t": "ViewAR · AR-Assistent für die Industrie", "x": "Kein Feature ohne Kunden-Input: Build-Measure-Learn hab ich als feste Arbeitsweise verankert. Die Produktdoku hab ich aus Interviews neu aufgebaut und nach jedem abgeschlossenen Ticket aktualisiert."}], "more": "PM-Prozess an allen vier Stationen aufgebaut, letzte Station (sechs Abteilungen auf einen Prozess), Gepardec (vom Wasserfall zu agil, lief nach meinem Abgang ohne mich weiter).", "notyet": ""}, {"name": "Eigene Tools", "level": "durchgängig belegt", "main": [{"t": "Letzte Station · SaaS für Hotels", "x": "Die Doku hab ich mit AI von null aufgebaut, aus Interviews und allen vorhandenen Daten. Vor dem Release hat das ganze Team den Chatbot gelöchert, die Lücken haben wir eingebaut. Danach lief es laufend weiter: Nach jedem Sprint und bei Fragen, die der Chatbot nicht beantworten konnte, kam ein Prüfticket auf mein Board, wenn die Doku nachgezogen werden musste."}, {"t": "Eigene Projekte", "x": "pm-toolkit: mein PM-Setup in Claude Code mit Commands, Subagents, Skills und einem eigenen Eval[[pmtoolkit]]. tvrd: mein Gym-Tracker, für mich gebaut, ich trainiere sechsmal die Woche damit[[tvrd]]."}], "more": "ViewAR (Marketing-Doku mit AI in ein Nutzerdokument umgebaut), Prototyping-Workflow mit Anbindung ans Design System, vor AI Jira-Automationen, Templates und Dashboards, eigenes Agent-Setup mit Regel-Hierarchie, Guardrails über Hooks und Memory.", "notyet": ""}, {"name": "Einführung beim Kunden", "level": "durchgängig belegt", "main": [{"t": "Innerspace · VR-Trainings für die Pharmaindustrie", "x": "Alle Implementierungen lagen bei mir, die ersten hab ich selbst gemacht: Technik in Betrieb nehmen, Trainer einschulen, bis sie allein klarkamen. Globaler Rollout bei einem Pharmakonzern über 14 Standorte von Japan bis Amerika, danach bei einem zweiten. Einziger Ansprechpartner fürs Produkt, auch in den Vertragsverhandlungen auf Englisch."}, {"t": "ViewAR · AR-Assistent für die Industrie", "x": "Implementierungen beim Kunden vor Ort unterstützt, den stockenden Rollout bei einem globalen Getränkekonzern vor Ort wieder in Gang gebracht.[[viewar]]"}], "more": "Gepardec (zwei Jahre als einziger Berater beim Kunden).", "notyet": ""}], "en": [{"name": "Feature Specification", "level": "everywhere, with results", "main": [{"t": "Gepardec · IT consulting, insurance client", "x": "The client wanted to digitize its reimbursement process, which ran on a paper file with expert checks. I helped the product owners translate the regulatory requirements into epics and stories and prioritize them. They knew the domain, I brought the analysis process. The digital product went live and replaced the paper file."}, {"t": "My last company · SaaS for hotels", "x": "There were no processes at all. I made PRDs before building a fixed step across six departments, and for new feature requests I built prototypes straight from the tickets, wired into the design system. Specs were done in days instead of weeks."}], "more": "Innerspace (requirements straight from the biweekly customer loops), ViewAR (PRDs, epics, stories).", "notyet": ""}, {"name": "Product Delivery", "level": "everywhere, with results", "main": [{"t": "Gepardec · IT consulting, insurance client", "x": "A 15-person team worked waterfall, cycle time was 10 working days. I moved it into two agile teams, introduced Evidence-Based Management, and pushed and implemented TDD, CI and automated deployments. Cycle time down to 3 working days (−70%), throughput +170%."}, {"t": "Innerspace · VR training for the pharma industry", "x": "A product with its own hardware that has to run at customer sites worldwide. Owned it across the whole lifecycle, from hardware setup and shipping to support and updates, and kept improving the development process. Result: +110% development efficiency, measured by cycle time."}], "more": "planned and ran releases at all four companies.", "notyet": ""}, {"name": "Quality Assurance", "level": "everywhere, with results", "main": [{"t": "ViewAR and my last company", "x": "I signed off every new version before release, playing it through hands-on with the devs. We regularly found bugs that got fixed in time or stopped something from being released."}, {"t": "ViewAR · AR assistant for industry", "x": "AR navigation has to work to within a few centimeters at the customer's site, on the production floor, not in the office. I pushed for testing as close to the user as possible: same hardware, same configuration and version, the physical space recreated as well as we could."}], "more": "Innerspace (sign-off together with the customer), Gepardec (introduced TDD, CI and automated deployments). Principle everywhere: if core functionality breaks, it gets a hotfix. Everything else gets fixed once the pain is big enough.", "notyet": ""}, {"name": "Fluency with Data", "level": "repeatedly", "main": [{"t": "Innerspace · VR training for the pharma industry", "x": "Our trainings ran on site at the customers, and we wanted to know where users got stuck. I defined the requirements for a dashboard (WAU, MAU, drop-off points in the training), the team built it. It showed many users dropping out at one point in a module. The cause was a hard-to-use UX, so we fixed it."}, {"t": "Gepardec · IT consulting, insurance client", "x": "With Evidence-Based Management we tracked cycle time and throughput continuously and adjusted how we worked."}], "more": "Innerspace (OKRs and KPIs, quantitative surveys with subject-matter experts), my last company (groundwork for product analytics, not implemented before I left), my own eval (recall deliberately weighted over precision).", "notyet": "experiments such as A/B tests, querying data myself without AI."}, {"name": "Voice of the Customer", "level": "everywhere, with results", "main": [{"t": "Innerspace · VR training for the pharma industry", "x": "When I started there were only ideas, no product. For a year I ran feedback loops with customers every two weeks, including playtesting sessions where they told us straight what worked and what didn't. It went right into development. After 12 months we had product/market fit: customers took the training into their learning management system for a mandatory certification. There were contract renewals too, NPS above 70."}, {"t": "ViewAR · AR assistant for industry", "x": "I interviewed all relevant existing and potential customers, remote and on site. That's where the decisions came from: which features to cut, what to build new, and that the product bets on workflows."}], "more": "Gepardec (on-site interviews with every business department), competitive analysis at Innerspace, ViewAR and my last company, my last company (qualitative via support and customer success, no analytics).", "notyet": ""}, {"name": "User Experience Design", "level": "everywhere, with results", "main": [{"t": "My last company · SaaS for hotels", "x": "Support set up the Automations feature by hand for every customer. We rebuilt it with prefilled, editable templates, suggestions and tooltips. Out of about 20 new customers, only 3 to 4 still needed support, over 80% of new users got along on their own."}, {"t": "Everywhere I worked with design", "x": "In UI/UX I was the voice of the customer. I gave designers everything I knew about the users and tested their prototypes hard, starting from the first sketch."}], "more": "Innerspace (usability tests, playtesting, UX fix after drop-off analysis), ViewAR (UI/UX of the workflows heavily improved).", "notyet": ""}, {"name": "Business Outcome Ownership", "level": "repeatedly, with results", "main": [{"t": "Innerspace · VR training for the pharma industry", "x": "We worked with OKRs and KPIs, and I was mainly responsible for the ARR target. Reported every two months to the founder and investors. Target hit, ARR +370%, mostly through two global rollouts."}, {"t": "ViewAR · AR assistant for industry", "x": "I carried an ARR target, and without a big deal it wasn't realistic. I shaped the product around the customer who needed workflows most, a global beverage company. Once the rollout blocker was solved, they signed, with more in sight."}], "more": "my last company (put the old product on lifeline to keep existing customers while everything else went into the new AI-first product).", "notyet": "my own business cases, P&L, unit economics."}, {"name": "Product Vision & Roadmapping", "level": "everywhere, with results", "main": [{"t": "Innerspace · VR training for the pharma industry", "x": "When I started there were only ideas. We worked out the strategy in the founding team, I owned it and kept adapting it during the first year. It became a six-module training program that cleanroom operators use for their mandatory certification. Product/market fit after 12 months."}, {"t": "ViewAR · AR assistant for industry", "x": "My thesis from day one: the product lives and dies with workflows. Navigation and damage reports are cool features, but workflows carry the product. We picked customers accordingly and rebuilt workflows for self-service. A global beverage company signed and wanted to build new kinds of workflows with us."}], "more": "my last company (lifeline strategy, new foundation for the AI-first product prioritized over more features, a vision of an AI that thinks ahead and puts the guest at the center), Gepardec (roadmap with the product owners). Prioritization always derived from strategy, riskiest assumptions first.", "notyet": ""}, {"name": "Strategic Impact", "level": "everywhere, with results", "main": [{"t": "My last company · SaaS for hotels", "x": "The company sold sales-led, and features were set up by hand at each customer. I proposed the move to product-led sales with self-service as the foundation, and the Automations rebuild was the proof. The argument carried: afterward all inboxes were rebuilt for self-service. I also moved pricing from per user to per room, because per-user pricing would have undercut our own AI strategy."}, {"t": "Innerspace · VR training for the pharma industry", "x": "No customer had VR hardware, and our software only ran on it. I decided the hardware is part of the product and the license prices have to cover it. The CFO did the actual pricing math."}], "more": "ViewAR (target segment: customers who mainly need workflows), release notes at every company, sales enablement and alignment with marketing at Innerspace, ViewAR and my last company.", "notyet": ""}, {"name": "Stakeholder Management", "level": "everywhere, with results", "main": [{"t": "My last company · SaaS for hotels", "x": "First product owner at the company, six departments, no shared processes and no authority over any of them. Within two months I had everyone on one process: PRDs before building, a decision log."}, {"t": "ViewAR · AR assistant for industry", "x": "A global rollout was stuck: sales reported a critical bug, engineering denied it. I drove to the customer, reproduced the problem on site and brought back evidence engineering could work with. The causes were on both sides, and the rollout moved again.[[viewar]]"}], "more": "Gepardec (two years alone at the client, aligning every business department), Innerspace (contract negotiations with global pharma companies).", "notyet": ""}, {"name": "Team Leadership", "level": "everywhere, with results", "main": [{"t": "Gepardec · IT consulting, insurance client", "x": "Two product owners were meant to take over their role themselves, that was the goal from the start. I coached them and set up the teams agile. In the end the POs and teams didn't need me anymore."}, {"t": "Innerspace · VR training for the pharma industry", "x": "I led two people, functionally and as their line manager, in customer success and support. The person in customer success later built their own team."}], "more": "ViewAR (one person, functionally, UI/UX), my last company (two people, functionally, UI/UX and integrations), coordinated development teams everywhere. Span: at most two direct reports per company.", "notyet": ""}, {"name": "Managing Up", "level": "everywhere, with results", "main": [{"t": "Innerspace · VR training for the pharma industry", "x": "I reported directly to the founder and every two months to a steering committee with two investors."}, {"t": "My last company · SaaS for hotels", "x": "I reported to the founder and CEO. I got the move to product-led sales through, and the new foundation prioritized over more features."}], "more": "Gepardec (directly to the client's head of department), ViewAR (to the CEO).", "notyet": ""}, {"name": "Tech & Architecture", "level": "repeatedly, with results", "main": [{"t": "My last company · SaaS for hotels", "x": "For the data model of the new AI product we argued long with engineering and the CTO about what's fundamental. My position: the guest, with bookings and conversations hanging off them. On the RAG setup I experimented with bigger and smaller chunks, because the AI didn't always use the knowledge base the way we wanted."}, {"t": "Innerspace · VR training for the pharma industry", "x": "Our product was hardware plus software: VR headset, infrared sensors for tracking, gaming PC. Setup, testing, shipping and installation at the customer were on me, including hooking it into the customer's network and passing learning results to their learning management system."}], "more": "ViewAR (found the causes of a rollout blocker on site, in the scan data and in a bug), Gepardec (introduced TDD, CI and automated deployments).", "notyet": "my own engineering depth without AI, meaning reading code or querying data."}, {"name": "Building Processes & Organization", "level": "everywhere, with results", "main": [{"t": "Innerspace · VR training for the pharma industry", "x": "Built the PM process from scratch, and the operations around the product hands-on: hardware setup, testing, shipping, installation, support, maintenance. We started with XP. Once it was clear that was too little structure for working with a large corporate, we switched to Scrum."}, {"t": "ViewAR · AR assistant for industry", "x": "No feature without customer input: I made build-measure-learn the standing way of working. I rebuilt the product docs from interviews and updated them after every closed ticket."}], "more": "built the PM process at all four companies, my last company (six departments on one process), Gepardec (from waterfall to agile, kept running after I left).", "notyet": ""}, {"name": "Own Tools", "level": "everywhere, with results", "main": [{"t": "My last company · SaaS for hotels", "x": "I built the docs from scratch with AI, from interviews and all the data we had. Before release the whole team grilled the chatbot, and we filled the gaps. After that it kept running: after every sprint, and for questions the chatbot couldn't answer, a review ticket landed on my board whenever the docs needed updating."}, {"t": "Own projects", "x": "pm-toolkit: my PM setup in Claude Code with commands, subagents, skills and its own eval[[pmtoolkit]]. tvrd: my gym tracker, built for myself, I train with it six times a week[[tvrd]]."}], "more": "ViewAR (turned marketing docs into user docs with AI), prototyping workflow wired into the design system, before AI Jira automations, templates and dashboards, my own agent setup with a rule hierarchy, guardrails via hooks and memory.", "notyet": ""}, {"name": "Customer Rollout", "level": "everywhere, with results", "main": [{"t": "Innerspace · VR training for the pharma industry", "x": "All implementations were on me, and I did the first ones myself: commissioning the tech and training the trainers until they managed on their own. Global rollout at a pharma company across 14 sites from Japan to the Americas, then at a second one. The only contact for the product, including contract negotiations in English."}, {"t": "ViewAR · AR assistant for industry", "x": "Supported implementations on site, and got a stalled rollout at a global beverage company moving again on site.[[viewar]]"}], "more": "Gepardec (two years as the only consultant at the client).", "notyet": ""}]};
+  var T={
+    de:{crumb0:'Bereich anklicken',all:'Alle Bereiche',pick:'Kompetenz anklicken',tgAll:'Alle 16 Kompetenzen',tgAllS:'Alle 16',tgBack:'Zurück',info:'Wie die Grafik aufgebaut ist',
+      leg1:'Ringe 1–5 · berührt · einmal · mehrfach · mit Ergebnis · durchgängig',leg2:'Entwicklungsfeld',dev:'Entwicklungsfeld',full:'durchgängig',
+      d0:'Bereich oder Kompetenz anklicken, um die Belege zu sehen.',area:'Bereich',areaDev:'Entwicklungsfeld: ',areaFull:'In allen Kompetenzen durchgängig belegt. ',areaPick:'Kompetenz anklicken für die Belege.',
+      more:'Weitere Belege',notyet:'Noch nicht belegt',back:'← Alle Kompetenzen',svg:'Kompetenz-Netz',
+      lv:{5:'durchgängig belegt',4:'mehrfach mit Ergebnis',3:'mehrfach belegt'},
+      viewar:'ViewAR-Case lesen →',areas:['Product Execution','Customer Insight','Product Strategy','Influencing People','Ergänzungen'],
+      ext:['Technik','Prozesse aufbauen','Eigene Tools','Kunden-Rollout']},
+    en:{crumb0:'Pick an area',all:'All areas',pick:'pick a competency',tgAll:'All 16 competencies',tgAllS:'All 16',tgBack:'Back',info:'How this chart works',
+      leg1:'Rings 1–5 · touched · once · repeatedly · with results · everywhere',leg2:'Development area',dev:'Development area',full:'everywhere',
+      d0:'Pick an area or a competency to see the evidence.',area:'Area',areaDev:'Development area: ',areaFull:'Evidenced everywhere across all competencies. ',areaPick:'Pick a competency for the evidence.',
+      more:'More evidence',notyet:'Not yet evidenced',back:'← All competencies',svg:'Competency web',
+      lv:{5:'everywhere, with results',4:'repeatedly, with results',3:'repeatedly'},
+      viewar:'Read the ViewAR case →',areas:['Product Execution','Customer Insight','Product Strategy','Influencing People','Beyond the framework'],
+      ext:['Tech','Building processes','Own tools','Customer rollout']}
+  };
+  // Mehta: 4 areas x 3 competencies, plus "Ergänzungen". Levels from the profile file.
+  var SHORT=[['Feature Specification','Product Delivery','Quality Assurance'],['Fluency with Data','Voice of the Customer','UX Design'],['Business Outcome','Vision & Roadmap','Strategic Impact'],['Stakeholder','Team Leadership','Managing Up'],null];
+  var LV=[[5,5,5],[3,5,5],[4,5,5],[5,5,5],[4,5,5,5]];
+  var C=[],i0=0;LV.forEach(function(arr,ai){arr.forEach(function(v,j){C.push({a:ai,j:j,v:v,i:i0++})})});
+  var N=C.length;C.forEach(function(c,i){c.ang=-Math.PI/2+i*2*Math.PI/N});
+  var A=LV.map(function(arr,ai){var m=C.filter(function(c){return c.a===ai});var sx=0,sy=0,s=0,mn=5;m.forEach(function(c){sx+=Math.cos(c.ang);sy+=Math.sin(c.ang);s+=c.v;mn=Math.min(mn,c.v)});
+    return{ang:Math.atan2(sy,sx),mean:s/m.length,min:mn,weak:m.filter(function(c){return c.v<5})}});
+  var lang=function(){return document.documentElement.getAttribute('data-lang')==='en'?'en':'de'};
+  var cname=function(c){var L=T[lang()];return c.a===4?L.ext[c.j]:SHORT[c.a][c.j]};
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var narrow=function(){return stage.clientWidth<560};
+
+  // ---------- glass orb ----------
+  var cv=document.getElementById('cw-gl'),gl=null,prog,U={};
+  try{gl=cv.getContext('webgl',{antialias:false,premultipliedAlpha:false})}catch(e){gl=null}
+  if(gl){
+    var VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    var FS=['precision highp float;uniform vec2 uRes;uniform float uTime,uR,uPulse,uLight;uniform vec3 uBg;uniform vec3 uDent[6];',
+'vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}',
+'vec4 permute(vec4 x){return mod289(((x*34.)+1.)*x);}vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-.85373472095314*r;}',
+'float snoise(vec3 v){const vec2 C=vec2(1./6.,1./3.);const vec4 D=vec4(0.,.5,1.,2.);vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);',
+'vec3 g=step(x0.yzx,x0.xyz);vec3 l=1.-g;vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+C.yyy;vec3 x3=x0-D.yyy;',
+'i=mod289(i);vec4 p=permute(permute(permute(i.z+vec4(0.,i1.z,i2.z,1.))+i.y+vec4(0.,i1.y,i2.y,1.))+i.x+vec4(0.,i1.x,i2.x,1.));',
+'float n_=.142857142857;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.*x_);',
+'vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.-abs(x)-abs(y);vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);',
+'vec4 s0=floor(b0)*2.+1.;vec4 s1=floor(b1)*2.+1.;vec4 sh=-step(h,vec4(0.));vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;',
+'vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);',
+'vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;',
+'vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.);m=m*m;return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}',
+'vec3 irid(float h){vec3 b=vec3(.10,.22,1.0),c=vec3(.15,.85,1.0),v=vec3(.55,.30,1.0),d=vec3(.06,.10,.55);h=fract(h);return h<.33?mix(d,b,h/.33):h<.66?mix(b,c,(h-.33)/.33):mix(c,v,(h-.66)/.34);}',
+'vec3 bend(vec3 n,float t,float a){float tt=t*(1.+a*2.2);return normalize(n+(.22+.30*a)*vec3(snoise(n*1.4+vec3(tt*.05,0.,0.)),snoise(n*1.4+vec3(7.,tt*.04,0.)),snoise(n*1.4+vec3(0.,13.,-tt*.045))));}',
+'float dentW(vec2 p){float th=atan(p.y,p.x);float w=0.;for(int i=0;i<6;i++){float da=abs(mod(th-uDent[i].x+3.14159,6.28318)-3.14159);w+=uDent[i].y*exp(-da*da/.16);}return clamp(w,0.,1.);}',
+'void main(){vec2 uv=(gl_FragCoord.xy-.5*uRes)/(.5*uRes.y);float t=uTime;vec2 p=uv/uR;float d=dot(p,p);vec3 bg=uBg;vec3 col=bg;float r=sqrt(d);',
+'col+=(uLight>.5?-vec3(.06,.05,.0):vec3(.08,.12,.45))*.18*exp(-max(r-1.,0.)*7.)*(r>1.?1.:0.)*(.85+.3*uPulse);',
+'if(d<1.){float z=sqrt(1.-d);float w=dentW(p);vec3 nf=bend(vec3(p,z),t,w);vec3 nb=bend(vec3(p,-z),t+40.,w);',
+'float ff=pow(1.-clamp(nf.z,0.,1.),2.7);float fb=pow(1.-clamp(-nb.z,0.,1.),6.5);float h=nf.x*.22+nf.y*.30+ff*.55+t*.015;',
+'vec3 front=irid(h)*ff*1.35;vec3 back=irid(h+.12+nb.y*.15)*fb*.16;',
+'float gf=pow(1.-z,2.2);vec3 warm=uLight>.5?vec3(.78,.47,.18):vec3(.88,.62,.36);front=mix(front,warm*gf*1.5,clamp(w*1.15,0.,.85));',
+'vec3 glass=(front+back)*(.88+.18*uPulse)*(1.+.2*w);float aa=smoothstep(1.,.985,r);',
+'vec3 inside=uLight>.5?bg*(1.-ff*.5)+glass*.75:bg*.6+glass;if(uLight>.5)inside=mix(inside,inside*vec3(1.,.78,.55),clamp(w*gf*2.4,0.,.7));col=mix(col,inside,aa);}',
+'col=pow(col,vec3(.92));gl_FragColor=vec4(col,1.);}'].join('\n');
+    var mk=function(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return gl.getShaderParameter(s,gl.COMPILE_STATUS)?s:null};
+    var vs=mk(gl.VERTEX_SHADER,VS),fs=mk(gl.FRAGMENT_SHADER,FS);
+    if(vs&&fs){prog=gl.createProgram();gl.attachShader(prog,vs);gl.attachShader(prog,fs);gl.linkProgram(prog);}
+    if(!prog||!gl.getProgramParameter(prog,gl.LINK_STATUS)){gl=null;}
+    else{gl.useProgram(prog);var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+      var loc=gl.getAttribLocation(prog,'p');gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+      ['uRes','uTime','uR','uPulse','uLight','uBg','uDent'].forEach(function(n){U[n]=gl.getUniformLocation(prog,n)});}
+  }
+  if(!gl)cv.style.display='none';
+  var mq=matchMedia('(prefers-color-scheme: dark)');
+
+  // ---------- SVG web ----------
+  var NS='http://www.w3.org/2000/svg',svg=document.getElementById('cw-svg');
+  var E=function(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e};
+  var gGrid=E('g',{}),gSec=E('g',{}),gPoly=E('g',{}),gNode=E('g',{}),gLab=E('g',{});
+  var rings=[1,2,3,4,5].map(function(v){return E('polygon',{'class':v===5?'cw-ring o':'cw-ring'},gGrid)});
+  var spokes=C.map(function(){return E('line',{'class':'cw-spoke'},gGrid)});
+  var bounds=A.map(function(){return E('line',{'class':'cw-bnd'},gSec)});
+  var poly=E('polygon',{'class':'cw-poly'},gPoly);
+  var nodes=C.map(function(){return E('circle',{r:3},gNode)});
+  var areaLabs=A.map(function(a,ai){var g=E('g',{'class':'cw-lab'},gLab);var t1=E('text',{'font-size':11,'letter-spacing':'.12em','class':'cw-t1','font-weight':500},g);
+    var t2=E('text',{'font-size':10.5,'class':a.min<5?'cw-t2 dev':'cw-t2'},g);var t3=E('text',{'font-size':10.5,'class':'cw-t2 dev'},g);g.addEventListener('click',function(){go(1,ai)});return{g:g,t1:t1,t2:t2,t3:t3}});
+  var compLabs=C.map(function(c,i){var g=E('g',{'class':'cw-lab'},gLab);var t=E('text',{'font-size':11,'class':c.v<5?'cw-tc dev':'cw-tc'},g);g.addEventListener('click',function(){pick(i)});return{g:g,t:t}});
+  var zoneLabs=A.map(function(a,ai){var g=E('g',{'class':'cw-lab'},gLab);var t=E('text',{'font-size':9.5,'letter-spacing':'.16em','class':'cw-tz','text-anchor':'middle'},g);g.addEventListener('click',function(){go(1,ai)});return{g:g,t:t}});
+
+  var z=0,zt=0,sel=-1,picked=-1;
+  var ease=function(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2};
+  var la=function(a,b,k){var d=b-a;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;return a+d*k};
+  var $=function(id){return document.getElementById(id)};
+  var esc=function(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')};
+  function links(x){var L=T[lang()];return esc(x).replace('[[viewar]]',' <a href="case-viewar.html">'+L.viewar+'</a>')
+    .replace('[[pmtoolkit]]',' <a href="https://github.com/leonardoperk/pm-toolkit" target="_blank" rel="noopener">GitHub ↗</a>')
+    .replace('[[tvrd]]',' <a href="https://tvrd.app" target="_blank" rel="noopener">tvrd.app ↗</a>')}
+
+  function texts(){var L=T[lang()];
+    $('cw-ib').setAttribute('aria-label',L.info);$('cw-svg-t').textContent=L.svg;$('cw-leg1').textContent=L.leg1;$('cw-leg2').textContent=L.leg2;
+    $('cw-tg').textContent=zt?L.tgBack:(narrow()?L.tgAllS:L.tgAll);
+    $('cw-crumb').innerHTML=zt?(sel<0?L.all:'<b>'+esc(L.areas[sel])+'</b>')+' · '+L.pick:L.crumb0;
+    var nr=narrow();areaLabs.forEach(function(o,ai){var a=A[ai];o.t1.textContent=L.areas[ai].toUpperCase();o.t1.setAttribute('font-size',nr?10:11);
+      o.t2.setAttribute('class',a.min<5?'cw-t2 dev':'cw-t2');o.t2.textContent=nr?(a.min<5?a.weak.map(cname).join(', '):''):(a.min<5?L.dev:L.full);
+      o.t3.textContent=nr?'':(a.min<5?a.weak.map(cname).join(', '):'')});
+    compLabs.forEach(function(o,i){o.t.textContent=cname(C[i])});
+    zoneLabs.forEach(function(o,ai){o.t.textContent=L.areas[ai].toUpperCase()});
+    detail();}
+  function detail(){var L=T[lang()],d=$('cw-d');
+    if(picked>=0){var c=C[picked],b=BEL[lang()][picked];
+      var body=b.main.map(function(m){return '<div class="cw-bl"><div class="cw-st">'+esc(m.t)+'</div><p>'+links(m.x)+'</p></div>'}).join('');
+      if(b.more||b.notyet)body+='<div class="cw-more">'+(b.more?'<div class="cw-ml">'+L.more+'</div><div class="cw-mt">'+esc(b.more)+'</div>':'')+(b.notyet?'<div class="cw-ml dev">'+L.notyet+'</div><div class="cw-mt">'+esc(b.notyet)+'</div>':'')+'</div>';
+      d.innerHTML=(narrow()&&zt?'<button class="cw-back" type="button" id="cw-back">'+L.back+'</button>':'')+'<div class="cw-k">'+esc(L.areas[c.a])+'</div><h3>'+esc(b.name)+'<span class="cw-lvl'+(c.v<5?' dev':'')+'">'+L.lv[c.v]+'</span></h3>'+body;
+      var bk=$('cw-back');if(bk)bk.addEventListener('click',function(){picked=-1;detail()});return}
+    if(zt&&narrow()){var h='<div class="cw-list">';A.forEach(function(a,ai){if(sel>=0&&sel!==ai)return;h+='<div class="cw-ga">'+esc(L.areas[ai])+'</div>';
+        C.filter(function(c){return c.a===ai}).forEach(function(c){h+='<button type="button" data-i="'+c.i+'">'+esc(BEL[lang()][c.i].name)+'<span'+(c.v<5?' class="dev"':'')+'>'+L.lv[c.v]+'</span></button>'})});
+      d.innerHTML=h+'</div>';d.querySelectorAll('.cw-list button').forEach(function(btn){btn.addEventListener('click',function(){pick(+btn.getAttribute('data-i'))})});return}
+    if(sel>=0){var a=A[sel];d.innerHTML='<div class="cw-k">'+L.area+'</div><h3>'+esc(L.areas[sel])+'</h3><p>'+(a.min<5?L.areaDev+a.weak.map(cname).join(', ')+'. ':L.areaFull)+L.areaPick+'</p>';return}
+    d.innerHTML='<p>'+L.d0+'</p>'}
+  function go(target,ai){zt=target;sel=ai===undefined?-1:ai;picked=-1;texts()}
+  function pick(i){picked=i;sel=C[i].a;texts();if(narrow())$('cw-d').scrollIntoView({behavior:'smooth',block:'start'})}
+  $('cw-tg').addEventListener('click',function(){go(zt?0:1)});
+  var ib=$('cw-ib'),pop=$('cw-pop');var setPop=function(o){pop.classList.toggle('open',o);ib.setAttribute('aria-expanded',o?'true':'false')};
+  ib.addEventListener('click',function(e){e.stopPropagation();setPop(!pop.classList.contains('open'))});
+  pop.addEventListener('click',function(e){e.stopPropagation()});document.addEventListener('click',function(){setPop(false)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')setPop(false)});
+  new MutationObserver(texts).observe(document.documentElement,{attributes:true,attributeFilter:['data-lang']});
+
+  function resize(){var dpr=Math.min(window.devicePixelRatio||1,narrow()?1.5:2),w=stage.clientWidth,h=stage.clientHeight;
+    cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);if(gl)gl.viewport(0,0,cv.width,cv.height);svg.setAttribute('viewBox','0 0 '+w+' '+h);texts()}
+  window.addEventListener('resize',resize);resize();
+
+  var visible=true;if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting}).observe(stage);
+  var t0=performance.now();
+  function frame(now){requestAnimationFrame(frame);if(!visible&&Math.abs(zt-z)<.001)return;
+    var t=reduce?3:(now-t0)/1000;if(Math.abs(zt-z)>.001)z+=(zt-z)*(reduce?1:.06);else z=zt;var k=ease(z),nar=narrow();
+    var pulse=reduce?.5:.5+.5*Math.sin(t*.9),w=stage.clientWidth,h=stage.clientHeight,cx=w/2,cy=h/2;
+    var orbPx=Math.min(h*.46,w*.47)*(1+.04*k)*(1+.006*pulse),R=orbPx*.55;
+    if(gl){var dark=mq.matches;gl.uniform1f(U.uLight,dark?0:1);gl.uniform3fv(U.uBg,dark?[.022,.022,.03]:[246/255,246/255,243/255]);gl.uniform2f(U.uRes,cv.width,cv.height);
+      var dl=[];A.forEach(function(a){if(a.mean<5)dl.push(-a.ang,Math.min(1,(5-a.mean)*1.2)*(1-k),0)});C.forEach(function(c){if(c.v<5)dl.push(-c.ang,Math.min(1,(5-c.v)*.5)*k,0)});
+      while(dl.length<18)dl.push(0,0,0);gl.uniform3fv(U.uDent,new Float32Array(dl.slice(0,18)));
+      gl.uniform1f(U.uTime,t);gl.uniform1f(U.uR,orbPx/(h*.5));gl.uniform1f(U.uPulse,pulse);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+    var sp=C.map(function(c){var ar=A[c.a];return{ang:la(ar.ang,c.ang,k),v:ar.mean+(c.v-ar.mean)*k,c:c}});
+    var P=function(a,r){return[cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
+    rings.forEach(function(rg,i){rg.setAttribute('points',sp.map(function(s){return P(s.ang,R*(i+1)/5).join(',')}).join(' '))});
+    spokes.forEach(function(l,i){var e=P(sp[i].ang,R);l.setAttribute('x1',cx);l.setAttribute('y1',cy);l.setAttribute('x2',e[0]);l.setAttribute('y2',e[1]);l.setAttribute('opacity',.3+.7*k)});
+    A.forEach(function(_,ai){var first=0;for(var q=0;q<N;q++)if(sp[q].c.a===ai){first=q;break}var prev=(first-1+N)%N,b=la(sp[prev].ang,sp[first].ang,.5),e=P(b,R*1.04),l=bounds[ai];
+      l.setAttribute('x1',cx);l.setAttribute('y1',cy);l.setAttribute('x2',e[0]);l.setAttribute('y2',e[1]);l.setAttribute('opacity',k)});
+    var pts=sp.map(function(s){return P(s.ang,R*s.v/5)});poly.setAttribute('points',pts.map(function(p){return p.join(',')}).join(' '));poly.setAttribute('fill-opacity',(.07+.04*pulse).toFixed(3));
+    nodes.forEach(function(n,i){var s=sp[i],dev=k<.5?A[s.c.a].min<5:s.c.v<5,first=C.findIndex(function(x){return x.a===s.c.a})===i;
+      n.setAttribute('cx',pts[i][0]);n.setAttribute('cy',pts[i][1]);n.setAttribute('class',dev?'cw-nd dev':'cw-nd');n.setAttribute('r',dev?3.6:2.8);
+      n.setAttribute('opacity',k<.5?(first?1:0):(sel<0||s.c.a===sel?1:.35))});
+    var oO=Math.max(0,1-k*2),oZ=nar?0:Math.max(0,k*2-1);
+    var anchor=function(el,a,r){var xy=P(a,r),c=Math.cos(a),an=Math.abs(c)<.25?'middle':c>0?'start':'end';el.setAttribute('text-anchor',an);el.setAttribute('x',xy[0]);return xy[1]};
+    A.forEach(function(a,ai){var L=areaLabs[ai],y=anchor(L.t1,a.ang,R+(nar?16:24));anchor(L.t2,a.ang,R+(nar?16:24));anchor(L.t3,a.ang,R+(nar?16:24));
+      var off=Math.sin(a.ang)>.5?10:Math.sin(a.ang)<-.5?-14:-4;L.t1.setAttribute('y',y+off);L.t2.setAttribute('y',y+off+(nar?14:16));L.t3.setAttribute('y',y+off+30);
+      L.g.setAttribute('opacity',oO);L.g.style.pointerEvents=oO>.3?'auto':'none';L.g.setAttribute('transform','');
+      if(oO>0){var bb=L.g.getBBox(),dx=0;if(bb.x<8)dx=8-bb.x;else if(bb.x+bb.width>w-8)dx=w-8-bb.x-bb.width;if(dx)L.g.setAttribute('transform','translate('+dx+',0)')}});
+    sp.forEach(function(s,i){var L=compLabs[i],y=anchor(L.t,s.ang,R+12);L.t.setAttribute('y',y+4);L.g.setAttribute('opacity',oZ*(sel<0||s.c.a===sel?1:.4));L.g.style.pointerEvents=oZ>.3?'auto':'none'});
+    A.forEach(function(a,ai){var L=zoneLabs[ai],xy=P(a.ang,R*.62);L.t.setAttribute('x',xy[0]);L.t.setAttribute('y',xy[1]+3);L.g.setAttribute('opacity',oZ*(sel<0||ai===sel?1:.45));L.g.style.pointerEvents=oZ>.3?'auto':'none'});
+  }
+  requestAnimationFrame(frame);
+})();
 </script>
 
 </body>
