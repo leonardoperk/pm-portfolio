@@ -94,6 +94,7 @@
     font-size:clamp(2.2rem,5.4vw,3.5rem);line-height:1.06;margin:0 0 24px;max-width:18ch}
   .lede{font-size:clamp(1.05rem,2vw,1.22rem);color:var(--sub);max-width:60ch;margin:0}
   .lede b{color:var(--ink);font-weight:600}
+  .lede .ln{display:block} /* jeder Satz eine eigene Zeile */
   h1,h3,.lede{text-wrap:balance}
   .h1-l2{display:inline-block} /* zweite Hero-Zeile balanciert für sich, sonst bleibt am Handy "meine." allein */
 
@@ -291,8 +292,8 @@
         <span class="en">I build products like the company is mine.</span>
       </h1>
       <p class="lede">
-        <span class="de"><b>Zuerst das Ergebnis</b>, dann das Feature. Die Tools und Evals dazu bau ich mir selbst.</span>
-        <span class="en"><b>Business outcome first</b>, then the feature. I build my own tools and evals for it.</span>
+        <span class="de"><span class="ln"><b>Zuerst das Ergebnis</b>, dann das Feature.</span> <span class="ln">Die Tools und Evals dazu bau ich mir selbst.</span></span>
+        <span class="en"><span class="ln"><b>Business outcome first</b>, then the feature.</span> <span class="ln">I build my own tools and evals for it.</span></span>
       </p>
     </div>
   </div>
