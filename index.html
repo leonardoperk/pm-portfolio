@@ -742,7 +742,7 @@
   var compLabs=C.map(function(c,i){var g=E('g',{'class':'cw-lab'},gLab);var t=E('text',{'font-size':11,'class':c.v<5?'cw-tc dev':'cw-tc'},g);g.addEventListener('click',function(){pick(i)});return{g:g,t:t}});
   var zoneLabs=A.map(function(a,ai){var g=E('g',{'class':'cw-lab'},gLab);var t=E('text',{'font-size':9.5,'letter-spacing':'.16em','class':'cw-tz','text-anchor':'middle'},g);g.addEventListener('click',function(){go(1,ai)});return{g:g,t:t}});
 
-  var z=0,zt=0,sel=-1,picked=-1;
+  var z=0,zt=0,sel=-1,picked=-1,dirty=true;
   var ease=function(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2};
   var la=function(a,b,k){var d=b-a;while(d>Math.PI)d-=2*Math.PI;while(d<-Math.PI)d+=2*Math.PI;return a+d*k};
   var $=function(id){return document.getElementById(id)};
@@ -751,7 +751,7 @@
     .replace('[[pmtoolkit]]',' <a href="https://github.com/leonardoperk/pm-toolkit" target="_blank" rel="noopener">GitHub ↗</a>')
     .replace('[[tvrd]]',' <a href="https://tvrd.app" target="_blank" rel="noopener">tvrd.app ↗</a>')}
 
-  function texts(){var L=T[lang()];
+  function texts(){var L=T[lang()];dirty=true;
     $('cw-ib').setAttribute('aria-label',L.info);$('cw-svg-t').textContent=L.svg;$('cw-leg1').textContent=L.leg1;$('cw-leg2').textContent=L.leg2;
     $('cw-tg').textContent=zt?L.tgBack:(narrow()?L.tgAllS:L.tgAll);
     $('cw-crumb').innerHTML=zt?(sel<0?L.all:'<b>'+esc(L.areas[sel])+'</b>')+' · '+L.pick:L.crumb0;
@@ -786,22 +786,29 @@
   window.addEventListener('resize',resize);resize();
 
   var visible=true;if('IntersectionObserver' in window)new IntersectionObserver(function(es){visible=es[0].isIntersecting}).observe(stage);
-  var t0=performance.now();
+  // Das Netz wird nur neu gezeichnet, wenn sich Zoom, Größe, Auswahl oder Sprache ändern.
+  // Das Atmen läuft als eine CSS-Skalierung über das ganze SVG. Vorher wanderten Labels und Linien
+  // jeden Frame um Bruchteile eines Pixels und rasteten sichtbar ein (Jitter, Leo 2026-11-19).
+  svg.style.transformOrigin='50% 50%';svg.style.willChange='transform';
+  var t0=performance.now(),zPrev=-1;
   function frame(now){requestAnimationFrame(frame);if(!visible&&Math.abs(zt-z)<.001)return;
     var t=reduce?3:(now-t0)/1000;if(Math.abs(zt-z)>.001)z+=(zt-z)*(reduce?1:.06);else z=zt;var k=ease(z),nar=narrow();
+    if(z!==zPrev){dirty=true;zPrev=z}
     var pulse=reduce?.5:.5+.5*Math.sin(t*.9),w=stage.clientWidth,h=stage.clientHeight,cx=w/2,cy=h/2;
-    var orbPx=Math.min(h*.46,w*.47)*(1+.04*k)*(1+.006*pulse),R=orbPx*.55;
+    var orbBase=Math.min(h*.46,w*.47)*(1+.04*k),orbPx=orbBase*(1+.006*pulse),R=orbBase*.55;
     if(gl){var dark=mq.matches;gl.uniform1f(U.uLight,dark?0:1);gl.uniform3fv(U.uBg,dark?[.022,.022,.03]:[246/255,246/255,243/255]);gl.uniform2f(U.uRes,cv.width,cv.height);
       var dl=[];A.forEach(function(a){if(a.mean<5)dl.push(-a.ang,Math.min(1,(5-a.mean)*1.2)*(1-k),0)});C.forEach(function(c){if(c.v<5)dl.push(-c.ang,Math.min(1,(5-c.v)*.5)*k,0)});
       while(dl.length<18)dl.push(0,0,0);gl.uniform3fv(U.uDent,new Float32Array(dl.slice(0,18)));
       gl.uniform1f(U.uTime,t);gl.uniform1f(U.uR,orbPx/(h*.5));gl.uniform1f(U.uPulse,pulse);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)}
+    svg.style.transform='scale('+(1+.006*pulse).toFixed(5)+')';poly.setAttribute('fill-opacity',(.07+.04*pulse).toFixed(3));
+    if(!dirty)return;dirty=false;
     var sp=C.map(function(c){var ar=A[c.a];return{ang:la(ar.ang,c.ang,k),v:ar.mean+(c.v-ar.mean)*k,c:c}});
     var P=function(a,r){return[cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
     rings.forEach(function(rg,i){rg.setAttribute('points',sp.map(function(s){return P(s.ang,R*(i+1)/5).join(',')}).join(' '))});
     spokes.forEach(function(l,i){var e=P(sp[i].ang,R);l.setAttribute('x1',cx);l.setAttribute('y1',cy);l.setAttribute('x2',e[0]);l.setAttribute('y2',e[1]);l.setAttribute('opacity',.3+.7*k)});
     A.forEach(function(_,ai){var first=0;for(var q=0;q<N;q++)if(sp[q].c.a===ai){first=q;break}var prev=(first-1+N)%N,b=la(sp[prev].ang,sp[first].ang,.5),e=P(b,R*1.04),l=bounds[ai];
       l.setAttribute('x1',cx);l.setAttribute('y1',cy);l.setAttribute('x2',e[0]);l.setAttribute('y2',e[1]);l.setAttribute('opacity',k)});
-    var pts=sp.map(function(s){return P(s.ang,R*s.v/5)});poly.setAttribute('points',pts.map(function(p){return p.join(',')}).join(' '));poly.setAttribute('fill-opacity',(.07+.04*pulse).toFixed(3));
+    var pts=sp.map(function(s){return P(s.ang,R*s.v/5)});poly.setAttribute('points',pts.map(function(p){return p.join(',')}).join(' '));
     nodes.forEach(function(n,i){var s=sp[i],dev=k<.5?A[s.c.a].min<5:s.c.v<5,first=C.findIndex(function(x){return x.a===s.c.a})===i;
       n.setAttribute('cx',pts[i][0]);n.setAttribute('cy',pts[i][1]);n.setAttribute('class',dev?'cw-nd dev':'cw-nd');n.setAttribute('r',dev?3.6:2.8);
       n.setAttribute('opacity',k<.5?(first?1:0):(sel<0||s.c.a===sel?1:.35))});
