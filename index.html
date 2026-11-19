@@ -781,7 +781,10 @@
   document.addEventListener('keydown',function(e){if(e.key==='Escape')setPop(false)});
   new MutationObserver(texts).observe(document.documentElement,{attributes:true,attributeFilter:['data-lang']});
 
-  function resize(){var dpr=Math.min(window.devicePixelRatio||1,2),w=stage.clientWidth,h=stage.clientHeight;
+  // Kugel intern mit 75 % Auflösung: bei 100 % halbierte der Shader auf 144 Hz die Framerate (gemessen 2026-11-19),
+  // bei 75 % läuft sie voll. Die weichen Verläufe tragen das Hochskalieren ohne sichtbaren Verlust.
+  var RS=.75;
+  function resize(){var dpr=Math.min(window.devicePixelRatio||1,2)*RS,w=stage.clientWidth,h=stage.clientHeight;
     cv.width=Math.round(w*dpr);cv.height=Math.round(h*dpr);if(gl)gl.viewport(0,0,cv.width,cv.height);svg.setAttribute('viewBox','0 0 '+w+' '+h);texts()}
   window.addEventListener('resize',resize);resize();
 
